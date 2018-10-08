@@ -1,0 +1,1981 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Project\_1}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Data Analysis and Machine Learning FYS-STK3155/FYS4155 -
+Project
+1}\label{data-analysis-and-machine-learning-fys-stk3155fys4155---project-1}
+
+    \subsubsection{Franke function}\label{franke-function}
+
+    \begin{align*}
+f(x,y) &= \frac{3}{4}\exp{\left(-\frac{(9x-2)^2}{4} - \frac{(9y-2)^2}{4}\right)}+\frac{3}{4}\exp{\left(-\frac{(9x+1)^2}{49}- \frac{(9y+1)}{10}\right)} \\
+&+\frac{1}{2}\exp{\left(-\frac{(9x-7)^2}{4} - \frac{(9y-3)^2}{4}\right)} -\frac{1}{5}\exp{\left(-(9x-4)^2 - (9y-7)^2\right) }.
+\end{align*}
+
+    
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{from} \PY{n+nn}{mpl\PYZus{}toolkits}\PY{n+nn}{.}\PY{n+nn}{mplot3d} \PY{k}{import} \PY{n}{Axes3D}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{from} \PY{n+nn}{matplotlib} \PY{k}{import} \PY{n}{cm}
+        \PY{k+kn}{from} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{ticker} \PY{k}{import} \PY{n}{LinearLocator}\PY{p}{,} \PY{n}{FormatStrFormatter}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{from} \PY{n+nn}{random} \PY{k}{import} \PY{n}{random}\PY{p}{,} \PY{n}{seed} 
+        
+        \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{linear\PYZus{}model}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{pipeline} \PY{k}{import} \PY{n}{make\PYZus{}pipeline}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{preprocessing} \PY{k}{import} \PY{n}{PolynomialFeatures}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{LinearRegression}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{,} \PY{n}{r2\PYZus{}score}\PY{p}{,} \PY{n}{mean\PYZus{}squared\PYZus{}log\PYZus{}error}\PY{p}{,} \PY{n}{mean\PYZus{}absolute\PYZus{}error}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{X} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mf}{0.004}\PY{p}{)}
+        \PY{n}{Y} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mf}{0.004}\PY{p}{)}
+        
+        \PY{n}{n} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{k}{def} \PY{n+nf}{FrankeFunction}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{)}\PY{p}{:}
+            \PY{n}{term1} \PY{o}{=} \PY{l+m+mf}{0.75}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{p}{(}\PY{l+m+mf}{0.25}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{9}\PY{o}{*}\PY{n}{x}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{l+m+mf}{0.25}\PY{o}{*}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{9}\PY{o}{*}\PY{n}{y}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+            \PY{n}{term2} \PY{o}{=} \PY{l+m+mf}{0.75}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{9}\PY{o}{*}\PY{n}{x}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{/}\PY{l+m+mf}{49.0} \PY{o}{\PYZhy{}} \PY{l+m+mf}{0.1}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{9}\PY{o}{*}\PY{n}{y}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+            \PY{n}{term3} \PY{o}{=} \PY{l+m+mf}{0.5}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{p}{(}\PY{l+m+mi}{9}\PY{o}{*}\PY{n}{x}\PY{o}{\PYZhy{}}\PY{l+m+mi}{7}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{o}{/}\PY{l+m+mf}{4.0} \PY{o}{\PYZhy{}} \PY{l+m+mf}{0.25}\PY{o}{*}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{9}\PY{o}{*}\PY{n}{y}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+            \PY{n}{term4} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mf}{0.2}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{p}{(}\PY{l+m+mi}{9}\PY{o}{*}\PY{n}{x}\PY{o}{\PYZhy{}}\PY{l+m+mi}{4}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{\PYZhy{}} \PY{p}{(}\PY{l+m+mi}{9}\PY{o}{*}\PY{n}{y}\PY{o}{\PYZhy{}}\PY{l+m+mi}{7}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}
+            \PY{k}{return} \PY{n}{term1} \PY{o}{+} \PY{n}{term2} \PY{o}{+} \PY{n}{term3} \PY{o}{+} \PY{n}{term4}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{k}{def} \PY{n+nf}{FindData}\PY{p}{(}\PY{n}{x} \PY{p}{,} \PY{n}{y}\PY{p}{)}\PY{p}{:}    
+            \PY{c+c1}{\PYZsh{}Franke funksjonen trenger et to dimensjonalt nett av variabler, meshgrid: }
+            \PY{n}{x\PYZus{}d}\PY{p}{,} \PY{n}{y\PYZus{}d} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{meshgrid}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{)}
+            \PY{n}{z\PYZus{}d} \PY{o}{=} \PY{n}{FrankeFunction}\PY{p}{(}\PY{n}{x\PYZus{}d}\PY{p}{,} \PY{n}{y\PYZus{}d}\PY{p}{)} \PY{c+c1}{\PYZsh{}+ 0.05*np.random.randn(n,n)  \PYZsh{}+random noise  0.05*np.random.randn(100, 100) }
+            \PY{k}{return} \PY{n}{x\PYZus{}d}\PY{p}{,} \PY{n}{y\PYZus{}d}\PY{p}{,} \PY{n}{z\PYZus{}d} 
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{k}{def} \PY{n+nf}{convertData}\PY{p}{(}\PY{n}{x\PYZus{}d}\PY{p}{,} \PY{n}{y\PYZus{}d}\PY{p}{,} \PY{n}{z\PYZus{}d}\PY{p}{)}\PY{p}{:}
+            \PY{c+c1}{\PYZsh{}Strekker ut matrisene}
+            \PY{n}{x} \PY{o}{=} \PY{n}{x\PYZus{}d}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}  
+            \PY{n}{y} \PY{o}{=} \PY{n}{y\PYZus{}d}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+            \PY{n}{z} \PY{o}{=} \PY{n}{z\PYZus{}d}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+            
+            \PY{c+c1}{\PYZsh{} returnerer også lengden (antall rader) til den nye utstrakte vektoren}
+            \PY{n}{n} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}
+            
+            \PY{k}{return} \PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{z}\PY{p}{,} \PY{n}{n}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{k}{def} \PY{n+nf}{plotSurface}\PY{p}{(}\PY{n}{x\PYZus{}d}\PY{p}{,} \PY{n}{y\PYZus{}d}\PY{p}{,} \PY{n}{z\PYZus{}d}\PY{p}{)}\PY{p}{:}
+            \PY{c+c1}{\PYZsh{} Kode for å plotte overflater, basert på oppgaveteksten }
+            \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+            \PY{n}{ax} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{gca}\PY{p}{(}\PY{n}{projection}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{3d}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}   
+           
+            \PY{n}{surf} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{plot\PYZus{}surface}\PY{p}{(}\PY{n}{x\PYZus{}d}\PY{p}{,} \PY{n}{y\PYZus{}d}\PY{p}{,} \PY{n}{z\PYZus{}d}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{n}{cm}\PY{o}{.}\PY{n}{coolwarm}\PY{p}{,}
+                               \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{antialiased}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+        
+            \PY{c+c1}{\PYZsh{} Customize the z axis.}
+            \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}zlim}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.10}\PY{p}{,} \PY{l+m+mf}{1.40}\PY{p}{)}
+            \PY{n}{ax}\PY{o}{.}\PY{n}{zaxis}\PY{o}{.}\PY{n}{set\PYZus{}major\PYZus{}locator}\PY{p}{(}\PY{n}{LinearLocator}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+            \PY{n}{ax}\PY{o}{.}\PY{n}{zaxis}\PY{o}{.}\PY{n}{set\PYZus{}major\PYZus{}formatter}\PY{p}{(}\PY{n}{FormatStrFormatter}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZpc{}.02f}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+                
+        
+            \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{X}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}zlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Z \PYZhy{} Franke}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            
+            \PY{c+c1}{\PYZsh{} Add a color bar which maps values to colors.}
+            \PY{n}{clb} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{colorbar}\PY{p}{(}\PY{n}{surf}\PY{p}{,} \PY{n}{shrink}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{n}{aspect}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}
+            \PY{n}{clb}\PY{o}{.}\PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Level}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+            \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{k}{def} \PY{n+nf}{XY}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{)}\PY{p}{:}
+            \PY{c+c1}{\PYZsh{} Oppretter designmatrisen/Vandermondes}
+            \PY{n}{xyb} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{c\PYZus{}}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{shape}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{x}\PY{o}{*}\PY{n}{y}\PY{p}{,} \PY{n}{y}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{y}\PY{p}{,} \PY{n}{x}\PY{o}{*}\PY{n}{y}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{y}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{4}\PY{p}{,} \PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{3}\PY{o}{*}\PY{n}{y}\PY{p}{,} \PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{y}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{x}\PY{o}{*}\PY{n}{y}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{3}\PY{p}{,}\PY{n}{y}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{4}\PY{p}{,}
+                   \PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{4}\PY{o}{*}\PY{n}{y}\PY{p}{,} \PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{3}\PY{o}{*}\PY{n}{y}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{y}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{x}\PY{o}{*}\PY{n}{y}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{4}\PY{p}{,} \PY{n}{y}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{5}\PY{p}{]}
+            \PY{c+c1}{\PYZsh{}print(xyb.shape)}
+            \PY{k}{return} \PY{n}{xyb}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{c+c1}{\PYZsh{}http://scikit\PYZhy{}learn.org/stable/modules/generated/sklearn.preprocessing.PolynomialFeatures.html }
+        \PY{k}{def} \PY{n+nf}{XYsklearn}\PY{p}{(}\PY{n}{degreePoly}\PY{p}{,} \PY{n}{X}\PY{p}{,}\PY{n}{Y}\PY{p}{)}\PY{p}{:} 
+        
+            \PY{c+c1}{\PYZsh{} Oppretter meshgrid av datasettet }
+            \PY{n}{x\PYZus{}d}\PY{p}{,} \PY{n}{y\PYZus{}d}\PY{p}{,} \PY{n}{z\PYZus{}d} \PY{o}{=} \PY{n}{FindData}\PY{p}{(}\PY{n}{X} \PY{p}{,} \PY{n}{Y}\PY{p}{)} 
+            \PY{c+c1}{\PYZsh{} Plotter z\PYZus{}d med meshgrid av x og y}
+            \PY{n}{plotSurface}\PY{p}{(}\PY{n}{x\PYZus{}d}\PY{p}{,} \PY{n}{y\PYZus{}d}\PY{p}{,} \PY{n}{z\PYZus{}d}\PY{p}{)} 
+        
+            \PY{c+c1}{\PYZsh{} Konverterer meshgrid til kolonnevektorer}
+            \PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{z}\PY{p}{,} \PY{n}{m} \PY{o}{=} \PY{n}{convertData}\PY{p}{(}\PY{n}{x\PYZus{}d}\PY{p}{,} \PY{n}{y\PYZus{}d}\PY{p}{,} \PY{n}{z\PYZus{}d}\PY{p}{)}
+            
+            \PY{c+c1}{\PYZsh{} Oppretter independent variabel matrise av x og y vektorene}
+            \PY{n}{independent\PYZus{}multi} \PY{o}{=} \PY{p}{[}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{]}
+            \PY{c+c1}{\PYZsh{}np.c\PYZus{}[x, y]}
+        
+            \PY{c+c1}{\PYZsh{} Bruker sklearn for å finne Lasso\PYZhy{}modell. Bruker PolynomialFeatures for ikke lineær funksjon}
+            \PY{n}{poly2} \PY{o}{=} \PY{n}{PolynomialFeatures}\PY{p}{(}\PY{n}{degree}\PY{o}{=}\PY{n}{degreePoly}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{} Transformerer variabelmatrisen }
+            \PY{n}{poly\PYZus{}sklearn} \PY{o}{=} \PY{n}{poly2}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{independent\PYZus{}multi}\PY{p}{)}
+        
+            \PY{c+c1}{\PYZsh{} Beregner Lasso modell }
+            \PY{c+c1}{\PYZsh{}lasso=linear\PYZus{}model.Lasso(alpha=0.001)}
+            \PY{c+c1}{\PYZsh{}lasso.fit(Lasso\PYZus{}sklearn, z\PYZus{}Lasso) }
+        
+            \PY{c+c1}{\PYZsh{} beregner forventet z\PYZhy{}verdier av x og y verdier}
+            \PY{c+c1}{\PYZsh{}predictLasso = lasso.predict(Lasso\PYZus{}sklearn)}
+        
+            \PY{k}{return} \PY{n}{poly\PYZus{}sklearn}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{k}{def} \PY{n+nf}{beta\PYZus{}model}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{n}{xyb}\PY{p}{,} \PY{n}{z}\PY{p}{)}\PY{p}{:}
+            \PY{k}{if} \PY{p}{(}\PY{n}{model} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Linear}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:} 
+                \PY{c+c1}{\PYZsh{} betaLinear: }
+                \PY{n}{betaLinear} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{inv}\PY{p}{(}\PY{n}{xyb}\PY{o}{.}\PY{n}{T}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{xyb}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{xyb}\PY{o}{.}\PY{n}{T}\PY{p}{)}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{z}\PY{p}{)} 
+                \PY{k}{return} \PY{n}{betaLinear}
+            \PY{k}{elif} \PY{p}{(}\PY{n}{model} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ridge}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+                \PY{n}{I} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{identity}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{n}{xyb}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)} 
+                \PY{n}{lambda\PYZus{}R} \PY{o}{=} \PY{l+m+mf}{0.5}
+                \PY{n}{betaRidge} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{inv}\PY{p}{(}\PY{n}{xyb}\PY{o}{.}\PY{n}{T}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{xyb}\PY{p}{)} \PY{o}{+} \PY{n}{lambda\PYZus{}R}\PY{o}{*}\PY{p}{(}\PY{n}{I}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{xyb}\PY{o}{.}\PY{n}{T}\PY{p}{)}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{z}\PY{p}{)}
+                \PY{k}{return} \PY{n}{betaRidge} 
+            \PY{k}{elif} \PY{p}{(}\PY{n}{model} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Lasso}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+                \PY{c+c1}{\PYZsh{}betaLasso = }
+                \PY{k}{return} \PY{n}{betaLasso}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{}trener modellen: }
+         \PY{k}{def} \PY{n+nf}{predict}\PY{p}{(}\PY{n}{xyb}\PY{p}{,}\PY{n}{beta}\PY{p}{,}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+             \PY{c+c1}{\PYZsh{} Finner utregnet forventet model. }
+             \PY{n}{zpredict} \PY{o}{=} \PY{n}{xyb}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{beta}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} shapen til x og y må ha like mange punkter, bruker derfor x\PYZus{}d.shape = y\PYZus{}d.shape}
+             \PY{n}{zpredict\PYZus{}mesh} \PY{o}{=} \PY{n}{zpredict}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{n}\PY{p}{,}\PY{n}{n}\PY{p}{)}
+             \PY{k}{return} \PY{n}{zpredict}\PY{p}{,} \PY{n}{zpredict\PYZus{}mesh}
+\end{Verbatim}
+
+
+    \paragraph{Statistical}\label{statistical}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{k}{def} \PY{n+nf}{mu}\PY{p}{(}\PY{n}{z}\PY{p}{,}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+             \PY{c+c1}{\PYZsh{}gjennomsnittsverdien }
+             \PY{n}{z\PYZus{}mean} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{n} \PY{p}{)} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{z}\PY{p}{)}
+             \PY{k}{return} \PY{n}{z\PYZus{}mean}
+           
+         \PY{k}{def} \PY{n+nf}{calc\PYZus{}Variance}\PY{p}{(}\PY{n}{z}\PY{p}{,} \PY{n}{z\PYZus{}mu}\PY{p}{,}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+             \PY{c+c1}{\PYZsh{}Sample variance: }
+             \PY{n}{var\PYZus{}z} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{n}\PY{p}{)}\PY{o}{*} \PY{n+nb}{sum}\PY{p}{(}\PY{p}{(}\PY{n}{z}\PY{o}{\PYZhy{}}\PY{n}{z\PYZus{}mu}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)} 
+             \PY{k}{return} \PY{n}{var\PYZus{}z}
+                 
+         \PY{k}{def} \PY{n+nf}{MSE}\PY{p}{(}\PY{n}{z}\PY{p}{,} \PY{n}{z\PYZus{}tilde}\PY{p}{,} \PY{n}{n}\PY{p}{)}\PY{p}{:}
+             \PY{c+c1}{\PYZsh{}Mean Squared Error: z = true value, z\PYZus{}tilde = forventet z utifra modell  }
+             \PY{n}{MSE} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{n}\PY{p}{)}\PY{o}{*}\PY{p}{(}\PY{n+nb}{sum}\PY{p}{(}\PY{n}{z}\PY{o}{\PYZhy{}}\PY{n}{z\PYZus{}tilde}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{}error = np.mean( np.mean((z \PYZhy{} z\PYZus{}tilde)**2, axis=1, keepdims=True) )}
+         
+             \PY{k}{return} \PY{n}{MSE}        
+                 
+         \PY{k}{def} \PY{n+nf}{calc\PYZus{}R\PYZus{}2}\PY{p}{(}\PY{n}{z}\PY{p}{,} \PY{n}{z\PYZus{}tilde}\PY{p}{,} \PY{n}{z\PYZus{}mean}\PY{p}{,} \PY{n}{n}\PY{p}{)}\PY{p}{:}
+             \PY{n}{R\PYZus{}2} \PY{o}{=} \PY{l+m+mi}{1}\PY{o}{\PYZhy{}} \PY{p}{(}\PY{p}{(}\PY{n+nb}{sum}\PY{p}{(}\PY{n}{z}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{n}{z\PYZus{}tilde}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n+nb}{sum}\PY{p}{(}\PY{p}{(}\PY{n}{z}\PY{o}{\PYZhy{}}\PY{n}{z\PYZus{}mean}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+             \PY{k}{return} \PY{n}{R\PYZus{}2}
+         
+         \PY{k}{def} \PY{n+nf}{MSEk}\PY{p}{(}\PY{n}{z}\PY{p}{,} \PY{n}{z\PYZus{}tilde}\PY{p}{,} \PY{n}{n}\PY{p}{)}\PY{p}{:}
+             \PY{n}{MSE} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{n}\PY{p}{)}\PY{o}{*}\PY{p}{(}\PY{n+nb}{sum}\PY{p}{(}\PY{p}{(}\PY{n}{z}\PY{o}{\PYZhy{}}\PY{n}{z\PYZus{}tilde}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+             \PY{k}{return} \PY{n}{MSE}    
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{k}{def} \PY{n+nf}{sigma\PYZus{}2}\PY{p}{(}\PY{n}{xyb}\PY{p}{,} \PY{n}{z\PYZus{}true}\PY{p}{,} \PY{n}{z\PYZus{}predict}\PY{p}{,} \PY{n}{N}\PY{p}{,} \PY{n}{p}\PY{p}{)}\PY{p}{:} 
+             \PY{n}{sigma2} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{p}{(}\PY{n}{N}\PY{o}{\PYZhy{}}\PY{p}{(}\PY{n}{p}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1} \PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{o}{*} \PY{p}{(}\PY{n+nb}{sum}\PY{p}{(}\PY{n}{z\PYZus{}true}\PY{o}{\PYZhy{}}\PY{n}{z\PYZus{}predict}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}
+             
+             \PY{n}{varBeta} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{inv}\PY{p}{(}\PY{n}{xyb}\PY{o}{.}\PY{n}{T}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{xyb}\PY{p}{)}\PY{p}{)}\PY{o}{*} \PY{n}{sigma2}\PY{c+c1}{\PYZsh{}**2}
+             
+             \PY{c+c1}{\PYZsh{}Intervall betacoefisienter: }
+             \PY{n}{s\PYZus{}beta\PYZus{}c\PYZus{}int} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{diag}\PY{p}{(}\PY{n}{varBeta}\PY{p}{)}\PY{p}{)}
+             
+             \PY{k}{return}  \PY{n}{s\PYZus{}beta\PYZus{}c\PYZus{}int}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{c+c1}{\PYZsh{} Finner Confidens Intervallet}
+         \PY{k}{def} \PY{n+nf}{confidenceIntervall}\PY{p}{(}\PY{n}{z\PYZus{}true}\PY{p}{,} \PY{n}{z\PYZus{}predict}\PY{p}{,} \PY{n}{N}\PY{p}{,} \PY{n}{p}\PY{p}{,} \PY{n}{xyb}\PY{p}{,} \PY{n}{beta}\PY{p}{)}\PY{p}{:}     
+             \PY{c+c1}{\PYZsh{}N = z punkter , p = ant polynom. }
+             
+             \PY{n}{sigma2} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{p}{(}\PY{n}{N}\PY{o}{\PYZhy{}}\PY{p}{(}\PY{n}{p}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1} \PY{p}{)}\PY{p}{)}\PY{p}{)} \PY{o}{*} \PY{p}{(}\PY{n+nb}{sum}\PY{p}{(}\PY{p}{(}\PY{n}{z\PYZus{}true}\PY{o}{\PYZhy{}}\PY{n}{z\PYZus{}predict}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{} Betas varians:}
+             \PY{n}{varBeta} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{inv}\PY{p}{(}\PY{p}{(}\PY{n}{xyb}\PY{o}{.}\PY{n}{T}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{xyb}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{o}{*} \PY{n}{sigma2} 
+             
+             \PY{c+c1}{\PYZsh{} estimert standardavvik pr beta.}
+             \PY{c+c1}{\PYZsh{} Må forklares i rapport hvorfor man velger å gjøre det slik og ikke på andre måter. }
+             \PY{n}{betaCoeff} \PY{o}{=} \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{diag}\PY{p}{(}\PY{n}{varBeta}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{}Intervall betacoefisienter: }
+             \PY{n}{beta\PYZus{}confInt} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{c\PYZus{}}\PY{p}{[}\PY{n}{beta}\PY{o}{\PYZhy{}}\PY{n}{betaCoeff}\PY{p}{,} \PY{n}{beta}\PY{o}{+}\PY{n}{betaCoeff}\PY{p}{]}    
+             \PY{k}{return} \PY{n}{beta}\PY{p}{,} \PY{n}{betaCoeff}\PY{p}{,} \PY{n}{beta\PYZus{}confInt} 
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{k}{def} \PY{n+nf}{confidenceIntervall2}\PY{p}{(}\PY{n}{z\PYZus{}true}\PY{p}{,} \PY{n}{N}\PY{p}{,} \PY{n}{p}\PY{p}{,} \PY{n}{xyb}\PY{p}{,} \PY{n}{beta}\PY{p}{)}\PY{p}{:}     
+             \PY{c+c1}{\PYZsh{}N = z punkter , p = ant polynom. }
+             \PY{n}{z\PYZus{}mean} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{N} \PY{p}{)} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{z\PYZus{}true}\PY{p}{)}
+             \PY{n}{sigma2} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{p}{(}\PY{n}{N}\PY{o}{\PYZhy{}}\PY{p}{(}\PY{n}{p}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1} \PY{p}{)}\PY{p}{)}\PY{p}{)} \PY{o}{*} \PY{p}{(}\PY{n+nb}{sum}\PY{p}{(}\PY{p}{(}\PY{n}{z\PYZus{}true}\PY{o}{\PYZhy{}}\PY{n}{z\PYZus{}mean}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{} Betas varians:}
+             \PY{n}{varBeta} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{inv}\PY{p}{(}\PY{p}{(}\PY{n}{xyb}\PY{o}{.}\PY{n}{T}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{xyb}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{o}{*} \PY{n}{sigma2} 
+             
+             \PY{c+c1}{\PYZsh{} estimert standardavvik pr beta.}
+             \PY{c+c1}{\PYZsh{} Må forklares i rapport hvorfor man velger å gjøre det slik og ikke på andre måter. }
+             \PY{n}{betaCoeff} \PY{o}{=} \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{diag}\PY{p}{(}\PY{n}{varBeta}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{}Intervall betacoefisienter: }
+             \PY{n}{beta\PYZus{}confInt} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{c\PYZus{}}\PY{p}{[}\PY{n}{beta}\PY{o}{\PYZhy{}}\PY{n}{betaCoeff}\PY{p}{,} \PY{n}{beta}\PY{o}{+}\PY{n}{betaCoeff}\PY{p}{]}    
+             \PY{k}{return} \PY{n}{beta}\PY{p}{,} \PY{n}{betaCoeff}\PY{p}{,} \PY{n}{beta\PYZus{}confInt} 
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{c+c1}{\PYZsh{} Finner modellens bias og varians:}
+         \PY{k}{def} \PY{n+nf}{bias}\PY{p}{(}\PY{n}{z\PYZus{}true}\PY{p}{,} \PY{n}{z\PYZus{}predict}\PY{p}{,} \PY{n}{N}\PY{p}{)}\PY{p}{:}    
+             \PY{n}{bias2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{(}\PY{n}{z\PYZus{}true} \PY{o}{\PYZhy{}} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{z\PYZus{}predict}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{p}{)}\PY{o}{/}\PY{n}{N}
+             \PY{c+c1}{\PYZsh{}bias = np.mean( (z\PYZus{}true \PYZhy{} np.mean(z\PYZus{}predict, axis=1, keepdims=True))**2 )}
+             \PY{k}{return} \PY{n}{bias2}
+         
+         \PY{k}{def} \PY{n+nf}{var2}\PY{p}{(}\PY{n}{z\PYZus{}predict}\PY{p}{,} \PY{n}{N}\PY{p}{)}\PY{p}{:} 
+             \PY{n}{var} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{(}\PY{n}{z\PYZus{}predict} \PY{o}{\PYZhy{}} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{z\PYZus{}predict}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{/}\PY{n}{N}
+             \PY{c+c1}{\PYZsh{}variance = np.mean( np.var(z\PYZus{}predict, axis=1, keepdims=True) )}
+             \PY{k}{return} \PY{n}{var}
+\end{Verbatim}
+
+
+    \subsubsection{Oppretter train/testdata:}\label{oppretter-traintestdata}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{c+c1}{\PYZsh{} deler datasettet i tre. en testdel og resten train. 30/70 }
+         \PY{k}{def} \PY{n+nf}{test2}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{n}{z}\PY{p}{,} \PY{n}{model}\PY{p}{)}\PY{p}{:} 
+             \PY{c+c1}{\PYZsh{} Oppretter en matrise av x, y og z. Datasettet deles deretter i test og train. }
+             \PY{n}{data1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{concatenate}\PY{p}{(}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)} 
+             \PY{c+c1}{\PYZsh{}data2 = z}
+             \PY{c+c1}{\PYZsh{} Splitter datasettet i to test og train .Test er et valideringssett og }
+             
+             \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+             \PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{x\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{data1}\PY{p}{,} \PY{n}{z}\PY{p}{,} \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{}x\PYZus{}test og y\PYZus{}test er valideringspunktene som skal brukes for å finne biasene. }
+             \PY{c+c1}{\PYZsh{} Henter validerings designmatrisa: }
+             
+             \PY{n}{xybvalidering} \PY{o}{=} \PY{n}{XY}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{x\PYZus{}test}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{xybvalidering}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+             
+             \PY{n}{data} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{concatenate}\PY{p}{(}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)} 
+             \PY{c+c1}{\PYZsh{}print(data.shape)}
+             \PY{n}{n} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{n}{data}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)} \PY{c+c1}{\PYZsh{}rader}
+             \PY{n}{m} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{n}{data}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)} \PY{c+c1}{\PYZsh{}kolonner}
+             
+             \PY{c+c1}{\PYZsh{} Shuffle dataset: }
+             \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{shuffle}\PY{p}{(}\PY{n}{data}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} datasettet deles i 3 \PYZhy{} en del test og to treningsdel }
+             \PY{n}{split\PYZus{}dataset} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array\PYZus{}split}\PY{p}{(}\PY{n}{data}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)} 
+             \PY{n}{test} \PY{o}{=} \PY{n}{split\PYZus{}dataset}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+             \PY{n}{train} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{concatenate}\PY{p}{(}\PY{p}{(}\PY{n}{split\PYZus{}dataset}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{split\PYZus{}dataset}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{)}
+                 
+             \PY{c+c1}{\PYZsh{} TRENING: }
+             \PY{c+c1}{\PYZsh{} Når hele datasettet er gått igjennom en hel iterasjon så trener man på train settet }
+             \PY{c+c1}{\PYZsh{}1. Finner designmatrisen, xyb: }
+             \PY{n}{xyb\PYZus{}train} \PY{o}{=} \PY{n}{XY}\PY{p}{(}\PY{n}{train}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{train}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{}2. Finner beta av treningsettet med treningsettets designmatrise og treningsdelens z\PYZhy{}verdier.  }
+             \PY{n}{beta} \PY{o}{=} \PY{n}{beta\PYZus{}model}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{n}{xyb\PYZus{}train}\PY{p}{,} \PY{n}{train}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)} 
+         
+             \PY{c+c1}{\PYZsh{} TEST:}
+             \PY{c+c1}{\PYZsh{} Designmatrisen opprettes for testsettet }
+             \PY{n}{xyb\PYZus{}test} \PY{o}{=} \PY{n}{XY}\PY{p}{(}\PY{n}{test}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{test}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+         
+             \PY{n}{nr} \PY{o}{=}  \PY{n}{np}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{n}{test}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}
+             
+         
+             \PY{c+c1}{\PYZsh{} Finner forventet z\PYZus{}verdier for testsettet ved å bruke utregnet modell, beta, over og testsettets x og y verdier fra xyb\PYZhy{}matrisa. }
+             \PY{n}{zpredict\PYZus{}test} \PY{o}{=} \PY{n}{xyb\PYZus{}test}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{beta}\PY{p}{)}
+             \PY{n}{zpredict\PYZus{}test\PYZus{}validering} \PY{o}{=} \PY{n}{xybvalidering}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{beta}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{zpredict\PYZus{}test\PYZus{}validering}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+             \PY{n}{Nval} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{n}{zpredict\PYZus{}test\PYZus{}validering}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{} regner ut mean squared error }
+             \PY{n}{mse} \PY{o}{=} \PY{n}{MSEk}\PY{p}{(}\PY{n}{test}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{n}{zpredict\PYZus{}test}\PY{p}{,} \PY{n}{nr}\PY{p}{)} 
+             
+             \PY{n}{z\PYZus{}mean} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{nr} \PY{p}{)} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{test}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} Regner ut R\PYZus{}2 score:  }
+             \PY{n}{R\PYZus{}2} \PY{o}{=} \PY{l+m+mi}{1} \PY{o}{\PYZhy{}} \PY{p}{(}\PY{p}{(}\PY{p}{(}\PY{n+nb}{sum}\PY{p}{(}\PY{n}{test}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{zpredict\PYZus{}test}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n+nb}{sum}\PY{p}{(}\PY{p}{(}\PY{n}{test}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{z\PYZus{}mean}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+                    
+             \PY{n}{betaCoeff} \PY{o}{=} \PY{n}{sigma\PYZus{}2}\PY{p}{(}\PY{n}{xyb\PYZus{}test}\PY{p}{,}\PY{n}{test}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{n}{zpredict\PYZus{}test}\PY{p}{,} \PY{n}{nr}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{}Intervall betacoefisienter: }
+             \PY{n}{beta\PYZus{}confInt} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{c\PYZus{}}\PY{p}{[}\PY{n}{beta}\PY{o}{\PYZhy{}}\PY{n}{betaCoeff}\PY{p}{,} \PY{n}{beta}\PY{o}{+}\PY{n}{betaCoeff}\PY{p}{]}
+             
+             \PY{c+c1}{\PYZsh{}bias: y\PYZus{}test er valideringspunktene z. }
+             \PY{n}{biasModel} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{(}\PY{n}{y\PYZus{}test} \PY{o}{\PYZhy{}} \PY{p}{(}\PY{n}{zpredict\PYZus{}test\PYZus{}validering}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{}bias(y\PYZus{}test, zpredict\PYZus{}test\PYZus{}validering, Nval)}
+             \PY{c+c1}{\PYZsh{}varians: }
+             \PY{n}{var} \PY{o}{=} \PY{n}{var2}\PY{p}{(}\PY{n}{zpredict\PYZus{}test}\PY{p}{,} \PY{n}{nr}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{}plt.scatter(test[:,0], test[:,1], test[:,2], label=\PYZsq{}Data points\PYZsq{})}
+             \PY{c+c1}{\PYZsh{}error = np.mean(np.mean((test[:,2] \PYZhy{} zpredict\PYZus{}test)**2, axis=1, keepdims=True) )}
+             
+             \PY{c+c1}{\PYZsh{}plt.plot(test[:,0], test[:,2], label=\PYZsq{}f(x)\PYZsq{})}
+             \PY{c+c1}{\PYZsh{}plt.scatter(x\PYZus{}test, y\PYZus{}test, label=\PYZsq{}Data points\PYZsq{})}
+             \PY{c+c1}{\PYZsh{}plt.scatter(x\PYZus{}test, np.mean(y\PYZus{}pred, axis=1), label=\PYZsq{}Pred\PYZsq{})}
+         
+             \PY{c+c1}{\PYZsh{}plt.scatter(test[:,0::10000], test[:,2::10000], label=\PYZsq{}Data points\PYZsq{})}
+             \PY{c+c1}{\PYZsh{}plt.scatter(test[:,0::10000], np.mean(zpredict\PYZus{}test), label=\PYZsq{}Pred\PYZsq{}) }
+             \PY{c+c1}{\PYZsh{}plt.show()}
+             \PY{c+c1}{\PYZsh{}plt.scatter(test[:,0], test[:,1], np.mean(zpredict\PYZus{}test, axis=1), label=\PYZsq{}Pred\PYZsq{})}
+             
+             \PY{c+c1}{\PYZsh{}print (beta\PYZus{}confInt )}
+             \PY{k}{return} \PY{n}{mse}\PY{p}{,} \PY{n}{R\PYZus{}2}\PY{p}{,} \PY{n}{biasModel}\PY{p}{,} \PY{n}{var}\PY{p}{,} \PY{n}{beta\PYZus{}confInt}     
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{c+c1}{\PYZsh{} deler datasettet i tre. en testdel og resten train. 30/70 }
+         \PY{k}{def} \PY{n+nf}{test}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{n}{z}\PY{p}{,} \PY{n}{model}\PY{p}{)}\PY{p}{:} 
+             \PY{c+c1}{\PYZsh{} Oppretter en matrise av x, y og z. Datasettet deles deretter i test og train. }
+             \PY{n}{data} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{concatenate}\PY{p}{(}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{z}\PY{p}{)}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)} 
+             
+             \PY{n}{n} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{n}{data}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)} \PY{c+c1}{\PYZsh{}rader}
+             \PY{n}{m} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{n}{data}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)} \PY{c+c1}{\PYZsh{}kolonner}
+             
+             \PY{c+c1}{\PYZsh{} Shuffle dataset: }
+             \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{shuffle}\PY{p}{(}\PY{n}{data}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} datasettet deles i 3 \PYZhy{} en del test og to treningsdel }
+             \PY{n}{split\PYZus{}dataset} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array\PYZus{}split}\PY{p}{(}\PY{n}{data}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)} 
+             \PY{n}{test} \PY{o}{=} \PY{n}{split\PYZus{}dataset}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+             \PY{n}{train} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{concatenate}\PY{p}{(}\PY{p}{(}\PY{n}{split\PYZus{}dataset}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{split\PYZus{}dataset}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{)}
+                 
+             \PY{c+c1}{\PYZsh{} TRENING: }
+             \PY{c+c1}{\PYZsh{} Når hele datasettet er gått igjennom en hel iterasjon så trener man på train settet }
+             \PY{c+c1}{\PYZsh{}1. Finner designmatrisen, xyb: }
+             \PY{n}{xyb\PYZus{}train} \PY{o}{=} \PY{n}{XY}\PY{p}{(}\PY{n}{train}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{train}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{}2. Finner beta av treningsettet med treningsettets designmatrise og treningsdelens z\PYZhy{}verdier.  }
+             \PY{n}{beta} \PY{o}{=} \PY{n}{beta\PYZus{}model}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{n}{xyb\PYZus{}train}\PY{p}{,} \PY{n}{train}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)} 
+         
+             \PY{c+c1}{\PYZsh{} TEST:}
+             \PY{c+c1}{\PYZsh{} Designmatrisen opprettes for testsettet }
+             \PY{n}{xyb\PYZus{}test} \PY{o}{=} \PY{n}{XY}\PY{p}{(}\PY{n}{test}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{test}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+         
+             \PY{n}{nr} \PY{o}{=}  \PY{n}{np}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{n}{test}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} Finner forventet z\PYZus{}verdier for testsettet ved å bruke utregnet modell, beta, over og testsettets x og y verdier fra xyb\PYZhy{}matrisa. }
+             \PY{n}{zpredict\PYZus{}test} \PY{o}{=} \PY{n}{xyb\PYZus{}test}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{beta}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} regner ut mean squared error }
+             \PY{n}{mse} \PY{o}{=} \PY{n}{MSEk}\PY{p}{(}\PY{n}{test}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{n}{zpredict\PYZus{}test}\PY{p}{,} \PY{n}{nr}\PY{p}{)} 
+             
+             \PY{n}{z\PYZus{}mean} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{nr} \PY{p}{)} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{test}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} Regner ut R\PYZus{}2 score:  }
+             \PY{n}{R\PYZus{}2} \PY{o}{=} \PY{l+m+mi}{1} \PY{o}{\PYZhy{}} \PY{p}{(}\PY{p}{(}\PY{p}{(}\PY{n+nb}{sum}\PY{p}{(}\PY{n}{test}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{zpredict\PYZus{}test}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n+nb}{sum}\PY{p}{(}\PY{p}{(}\PY{n}{test}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{z\PYZus{}mean}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+                    
+             \PY{n}{betaCoeff} \PY{o}{=} \PY{n}{sigma\PYZus{}2}\PY{p}{(}\PY{n}{xyb\PYZus{}test}\PY{p}{,}\PY{n}{test}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{n}{zpredict\PYZus{}test}\PY{p}{,} \PY{n}{nr}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{}Intervall betacoefisienter: }
+             \PY{n}{beta\PYZus{}confInt} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{c\PYZus{}}\PY{p}{[}\PY{n}{beta}\PY{o}{\PYZhy{}}\PY{n}{betaCoeff}\PY{p}{,} \PY{n}{beta}\PY{o}{+}\PY{n}{betaCoeff}\PY{p}{]}
+             
+             \PY{c+c1}{\PYZsh{}bias: }
+             \PY{n}{biasModel} \PY{o}{=} \PY{n}{bias}\PY{p}{(}\PY{n}{test}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{n}{zpredict\PYZus{}test}\PY{p}{,} \PY{n}{nr}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{}varians: }
+             
+             \PY{c+c1}{\PYZsh{}calc\PYZus{}Variance}
+             
+             \PY{n}{var} \PY{o}{=} \PY{n}{var2}\PY{p}{(}\PY{n}{zpredict\PYZus{}test}\PY{p}{,} \PY{n}{nr}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{}plt.scatter(test[:,0], test[:,1], test[:,2], label=\PYZsq{}Data points\PYZsq{})}
+             \PY{c+c1}{\PYZsh{}error = np.mean(np.mean((test[:,2] \PYZhy{} zpredict\PYZus{}test)**2, axis=1, keepdims=True) )}
+             
+             \PY{c+c1}{\PYZsh{}plt.plot(test[:,0], test[:,2], label=\PYZsq{}f(x)\PYZsq{})}
+             \PY{c+c1}{\PYZsh{}plt.scatter(x\PYZus{}test, y\PYZus{}test, label=\PYZsq{}Data points\PYZsq{})}
+             \PY{c+c1}{\PYZsh{}plt.scatter(x\PYZus{}test, np.mean(y\PYZus{}pred, axis=1), label=\PYZsq{}Pred\PYZsq{})}
+         
+             \PY{c+c1}{\PYZsh{}plt.scatter(test[:,0::10000], test[:,2::10000], label=\PYZsq{}Data points\PYZsq{})}
+             \PY{c+c1}{\PYZsh{}plt.scatter(test[:,0::10000], np.mean(zpredict\PYZus{}test), label=\PYZsq{}Pred\PYZsq{}) }
+             \PY{c+c1}{\PYZsh{}plt.show()}
+             \PY{c+c1}{\PYZsh{}plt.scatter(test[:,0], test[:,1], np.mean(zpredict\PYZus{}test, axis=1), label=\PYZsq{}Pred\PYZsq{})}
+             
+             \PY{c+c1}{\PYZsh{}print (beta\PYZus{}confInt )}
+             \PY{k}{return} \PY{n}{mse}\PY{p}{,} \PY{n}{R\PYZus{}2}\PY{p}{,} \PY{n}{biasModel}\PY{p}{,} \PY{n}{var}\PY{p}{,} \PY{n}{beta\PYZus{}confInt}     
+\end{Verbatim}
+
+
+    \subsubsection{Cross-Validation}\label{cross-validation}
+
+\paragraph{K-fold}\label{k-fold}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{k}{def} \PY{n+nf}{test\PYZus{}k\PYZus{}fold}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{n}{z}\PY{p}{,} \PY{n}{k}\PY{p}{,} \PY{n}{model}\PY{p}{)}\PY{p}{:} 
+             \PY{c+c1}{\PYZsh{} Oppretter en matrise av x, y og z. Datasettet som skal crossvalideres}
+             \PY{n}{size} \PY{o}{=}\PY{p}{(}\PY{n}{k}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n}{biasModel} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{size}\PY{p}{)}
+             \PY{n}{data1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{concatenate}\PY{p}{(}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)} 
+             \PY{c+c1}{\PYZsh{}data2 = z}
+             \PY{c+c1}{\PYZsh{} Splitter datasettet i to test og train .Test i dette tilfellet er et valideringssett og inndelingen: }
+             \PY{c+c1}{\PYZsh{}25\PYZpc{} validering og resten train som videre deles inn i 25\PYZpc{} test og resten treining for å finne beta. }
+             
+             \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+             \PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{x\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{data1}\PY{p}{,} \PY{n}{z}\PY{p}{,} \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.25}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{}x\PYZus{}test og y\PYZus{}test er valideringspunktene som skal brukes for å finne biasene. }
+             \PY{c+c1}{\PYZsh{} Henter validerings designmatrisa: }
+             \PY{n}{xybvalidering} \PY{o}{=} \PY{n}{XY}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{x\PYZus{}test}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{}print(xybvalidering.shape)}
+             
+             \PY{n}{data} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{concatenate}\PY{p}{(}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)} 
+         
+             \PY{n}{n} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{n}{data}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)} \PY{c+c1}{\PYZsh{}rader}
+             \PY{n}{m} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{n}{data}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)} \PY{c+c1}{\PYZsh{}kolonner}
+         
+             \PY{c+c1}{\PYZsh{} Shuffle dataset: }
+             \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{shuffle}\PY{p}{(}\PY{n}{data}\PY{p}{)}
+         
+             \PY{n}{mse} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{n}{r2} \PY{o}{=} \PY{l+m+mi}{0}
+             
+             \PY{n}{betaCoeff} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{n}{bias} \PY{o}{=} \PY{l+m+mi}{0} 
+             \PY{n}{varianceModel} \PY{o}{=} \PY{l+m+mi}{0} 
+             \PY{n}{biasModelk} \PY{o}{=} \PY{l+m+mi}{0}
+             
+             \PY{c+c1}{\PYZsh{}splitter dataset i k like deler. Oppretter antall folder. Bruker array\PYZus{}split. Da blir k deler blir ikke eksakt like,}
+             \PY{c+c1}{\PYZsh{}men tilnærmet like, stort datasett gir lite forskjell. }
+             \PY{n}{split\PYZus{}dataset} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array\PYZus{}split}\PY{p}{(}\PY{n}{data}\PY{p}{,}\PY{n}{k}\PY{p}{)} 
+             \PY{c+c1}{\PYZsh{}Definerer alle k gangene datasettet skal deles opp. }
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{k}\PY{p}{)}\PY{p}{:} 
+                 \PY{c+c1}{\PYZsh{} resetter train før hver oppdeling av datasettet.  }
+                 \PY{n}{train} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
+         
+                 \PY{c+c1}{\PYZsh{} j definerer selve splittdelene og man bestemmer her om del j er en trenings eller test del. }
+                 \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{k}\PY{p}{)}\PY{p}{:} 
+                     \PY{k}{if} \PY{n}{j} \PY{o}{==} \PY{n}{i}\PY{p}{:}
+                         \PY{n}{test} \PY{o}{=} \PY{n}{split\PYZus{}dataset}\PY{p}{[}\PY{n}{j}\PY{p}{]}
+                         \PY{k}{continue}
+                     \PY{n}{train} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{concatenate}\PY{p}{(}\PY{p}{(}\PY{n}{train}\PY{p}{,} \PY{n}{split\PYZus{}dataset}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{)}
+                 \PY{c+c1}{\PYZsh{}print(train.shape)}
+                 
+                 \PY{c+c1}{\PYZsh{} TRENING: }
+                 \PY{c+c1}{\PYZsh{} Når hele datasettet er gått igjennom en hel iterasjon så trener man på train settet }
+                 \PY{c+c1}{\PYZsh{}1. Finner designmatrisen, xyb: }
+                 \PY{n}{xyb\PYZus{}train} \PY{o}{=} \PY{n}{XY}\PY{p}{(}\PY{n}{train}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{train}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+                 
+                 \PY{c+c1}{\PYZsh{}2. Finner beta av treningsettet med treningsettets designmatrise og treningsdelens z\PYZhy{}verdier.  }
+                 \PY{c+c1}{\PYZsh{} finner beta for sett nr i }
+                 \PY{n}{beta} \PY{o}{=} \PY{n}{beta\PYZus{}model}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{n}{xyb\PYZus{}train}\PY{p}{,} \PY{n}{train}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)} 
+                 
+                 \PY{c+c1}{\PYZsh{} VALIDERING }
+                 \PY{c+c1}{\PYZsh{} Finner Z\PYZus{}k\PYZhy{} denne skal sjekkes mot z\PYZus{}validering og regne ut den totalebiasen etterhvert }
+                 \PY{n}{zpredict\PYZus{}test\PYZus{}validering} \PY{o}{=} \PY{n}{xybvalidering}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{beta}\PY{p}{)}
+                 \PY{c+c1}{\PYZsh{}print(zpredict\PYZus{}test\PYZus{}validering.shape)}
+                 \PY{n}{Nval} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{n}{zpredict\PYZus{}test\PYZus{}validering}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}
+                 
+                 \PY{c+c1}{\PYZsh{} TEST:}
+                 \PY{c+c1}{\PYZsh{} Designmatrisen opprettes for testsettet }
+                 \PY{n}{xyb\PYZus{}test} \PY{o}{=} \PY{n}{XY}\PY{p}{(}\PY{n}{test}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{test}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+                 
+                 \PY{n}{nr} \PY{o}{=}  \PY{n}{np}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{n}{test}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}
+         
+                 \PY{c+c1}{\PYZsh{} Finner forventet z\PYZus{}verdier for testsettet ved å bruke utregnet modell, beta, over og testsettets x og y verdier fra xyb\PYZhy{}matrisa. }
+                 \PY{n}{zpredict\PYZus{}test} \PY{o}{=} \PY{n}{xyb\PYZus{}test}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{beta}\PY{p}{)}
+                 \PY{c+c1}{\PYZsh{}zTruek[i] = test[:,2]}
+                 \PY{c+c1}{\PYZsh{}print(test[:,2].shape)}
+                 \PY{c+c1}{\PYZsh{}np.concatenate((zpredict\PYZus{}test[i], ), axis=0)}
+                 
+                 \PY{c+c1}{\PYZsh{} regner ut mean squared error pr fold  }
+                 \PY{c+c1}{\PYZsh{}part\PYZus{}mse = MSEk(test[:,2], zpredict\PYZus{}test, nr) }
+                 \PY{c+c1}{\PYZsh{}FOR VALIDERINGSSETTET: }
+                 \PY{c+c1}{\PYZsh{} Finner part error pr fold. Førs finne meansquared pr z og deretter mean av dette: }
+                 \PY{n}{part\PYZus{}mse} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{MSEk}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{zpredict\PYZus{}test\PYZus{}validering}\PY{p}{,} \PY{n}{Nval}\PY{p}{)}\PY{p}{)} 
+                 
+                 \PY{c+c1}{\PYZsh{}For testsettet: }
+                 \PY{c+c1}{\PYZsh{}part\PYZus{}mse = np.mean(MSEk(test[:,2], zpredict\PYZus{}test, nr)) }
+         
+                 
+                 \PY{n+nb}{print}\PY{p}{(}\PY{n}{part\PYZus{}mse}\PY{p}{)}
+             
+                 
+                 
+         \PY{c+c1}{\PYZsh{}       part\PYZus{}mse = }
+                 \PY{c+c1}{\PYZsh{}part\PYZus{}mse = MSE(test[:,2], zpredict\PYZus{}test, nr) }
+                 \PY{c+c1}{\PYZsh{}error }
+                 \PY{c+c1}{\PYZsh{}part\PYZus{}mse = np.mean(np.mean((test[:,2] \PYZhy{} zpredict\PYZus{}test)**2) )}
+         
+                 \PY{n}{mse} \PY{o}{=} \PY{n}{mse} \PY{o}{+} \PY{n}{part\PYZus{}mse}
+         
+                 \PY{n}{z\PYZus{}mean} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{nr} \PY{p}{)} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{test}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+                 
+                 \PY{c+c1}{\PYZsh{} Regner ut R\PYZus{}2 score pr fold:   }
+                 \PY{n}{R\PYZus{}2} \PY{o}{=} \PY{l+m+mi}{1} \PY{o}{\PYZhy{}} \PY{p}{(}\PY{p}{(}\PY{p}{(}\PY{n+nb}{sum}\PY{p}{(}\PY{n}{test}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{zpredict\PYZus{}test}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n+nb}{sum}\PY{p}{(}\PY{p}{(}\PY{n}{test}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{z\PYZus{}mean}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{r2} \PY{o}{=} \PY{n}{r2} \PY{o}{+} \PY{n}{R\PYZus{}2}
+                 
+                 \PY{c+c1}{\PYZsh{}Finner betacoeffisientenes varians }
+                 \PY{n}{betaCoeffpart} \PY{o}{=} \PY{n}{sigma\PYZus{}2}\PY{p}{(}\PY{n}{xyb\PYZus{}test}\PY{p}{,}\PY{n}{test}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{n}{zpredict\PYZus{}test}\PY{p}{,} \PY{n}{nr}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}
+                 
+                 \PY{n}{betaCoeff} \PY{o}{=} \PY{n}{betaCoeff} \PY{o}{+} \PY{n}{betaCoeffpart}         
+                 
+                 \PY{c+c1}{\PYZsh{}bias: }
+          
+                 \PY{c+c1}{\PYZsh{}varians: }
+                 \PY{c+c1}{\PYZsh{}var = var2(zpredict\PYZus{}test, nr)}
+                 \PY{n}{varpart} \PY{o}{=} \PY{n}{var2}\PY{p}{(}\PY{n}{zpredict\PYZus{}test\PYZus{}validering}\PY{p}{,} \PY{n}{Nval}\PY{p}{)}
+         
+                 \PY{c+c1}{\PYZsh{}biaspart = bias(test[:,2], zpredict\PYZus{}test, nr)}
+                 \PY{c+c1}{\PYZsh{}varians: }
+                 
+                 \PY{c+c1}{\PYZsh{}varpart = var2(zpredict\PYZus{}test, nr)}
+                 
+                 \PY{n+nb}{print}\PY{p}{(}\PY{n}{varpart}\PY{p}{)}     
+                 \PY{n}{varianceModel} \PY{o}{=} \PY{n}{varianceModel} \PY{o}{+} \PY{n}{varpart}
+                 \PY{n}{biasModel}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{(}\PY{n}{y\PYZus{}test} \PY{o}{\PYZhy{}} \PY{p}{(}\PY{n}{zpredict\PYZus{}test\PYZus{}validering}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{p}{)}
+                 \PY{c+c1}{\PYZsh{}print(biasModel[i])}
+                 \PY{c+c1}{\PYZsh{}plt.scatter(test[:,0], test[:,1], test[:,2], label=\PYZsq{}Data points\PYZsq{})}
+                 \PY{c+c1}{\PYZsh{}plt.scatter(test[:,0], test[:,1], np.mean(zpredict\PYZus{}test, axis=1), label=\PYZsq{}Pred\PYZsq{})}
+                 \PY{c+c1}{\PYZsh{}biaspart = }
+                 \PY{c+c1}{\PYZsh{}resetter: }
+                 
+                 \PY{k}{for} \PY{n}{a} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{k}\PY{p}{)}\PY{p}{:}
+                     \PY{k}{if} \PY{n}{a} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:} 
+                         \PY{n}{zpredbias} \PY{o}{=} \PY{n}{zpredict\PYZus{}test}
+                         \PY{n}{ztruebias} \PY{o}{=} \PY{n}{test}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}
+                     \PY{k}{else}\PY{p}{:} 
+                         \PY{n}{zpredbias} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{concatenate}\PY{p}{(}\PY{p}{(}\PY{n}{zpredbias}\PY{p}{,} \PY{n}{zpredict\PYZus{}test}\PY{p}{)}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{)} 
+                         \PY{n}{ztruebias} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{concatenate}\PY{p}{(}\PY{p}{(}\PY{n}{ztruebias}\PY{p}{,} \PY{n}{test}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{)} 
+                 \PY{n}{varpart} \PY{o}{=} \PY{l+m+mi}{0}
+                 \PY{n}{betaCoeffpart} \PY{o}{=} \PY{l+m+mi}{0}
+                 \PY{n}{part\PYZus{}mse} \PY{o}{=} \PY{l+m+mi}{0}
+                 \PY{n}{nr} \PY{o}{=} \PY{l+m+mi}{0}
+                 \PY{n}{R\PYZus{}2} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{c+c1}{\PYZsh{}print(zpredbias.shape)}
+             \PY{c+c1}{\PYZsh{}print(ztruebias.shape)}
+             \PY{c+c1}{\PYZsh{}Nbias = np.size(ztruebias,0)}
+                 
+             \PY{c+c1}{\PYZsh{} Beregnet mean squared error og R\PYZus{}2 etter cross\PYZhy{}validation med k\PYZhy{}fold :}
+             \PY{n}{total\PYZus{}MSE} \PY{o}{=} \PY{p}{(}\PY{n}{mse}\PY{o}{/}\PY{n}{k}\PY{p}{)}
+             \PY{n}{total\PYZus{}R\PYZus{}2} \PY{o}{=} \PY{p}{(}\PY{n}{r2}\PY{o}{/}\PY{n}{k}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{}bias: }
+             \PY{c+c1}{\PYZsh{}biasModelk = bias(ztruebias[:,0] , zpredbias[:,0] , Nbias)}
+             \PY{c+c1}{\PYZsh{}biasModelk = bias(ztruebias, zpredbias, Nbias)}
+         
+             \PY{c+c1}{\PYZsh{}biasModelk = np.mean((ztruebias \PYZhy{} np.mean(zpredbias))**2 )}
+             \PY{c+c1}{\PYZsh{}print (biasModel) }
+             \PY{n}{totVarianceModel} \PY{o}{=} \PY{n}{varianceModel}\PY{o}{/}\PY{n}{k}
+             \PY{c+c1}{\PYZsh{}Intervall betacoefisienter: }
+             \PY{n}{beta\PYZus{}confInt} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{c\PYZus{}}\PY{p}{[}\PY{n}{beta}\PY{o}{\PYZhy{}}\PY{p}{(}\PY{n}{betaCoeff}\PY{o}{/}\PY{n}{k}\PY{p}{)}\PY{p}{,} \PY{n}{beta}\PY{o}{+}\PY{p}{(}\PY{n}{betaCoeff}\PY{o}{/}\PY{n}{k}\PY{p}{)}\PY{p}{]}
+             \PY{k}{return} \PY{n}{total\PYZus{}MSE}\PY{p}{,} \PY{n}{total\PYZus{}R\PYZus{}2}\PY{p}{,} \PY{n}{totVarianceModel} \PY{p}{,} \PY{n}{beta\PYZus{}confInt}\PY{p}{,} \PY{n}{biasModel}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{k}{def} \PY{n+nf}{k\PYZus{}fold\PYZus{}Lasso}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{n}{z}\PY{p}{,} \PY{n}{k}\PY{p}{,} \PY{n}{Lasso\PYZus{}alpha}\PY{p}{)}\PY{p}{:} 
+             \PY{c+c1}{\PYZsh{} Oppretter en matrise av x, y og z. Datasettet som skal crossvalideres}
+             \PY{n}{data} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{concatenate}\PY{p}{(}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{z}\PY{p}{)}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)} 
+         
+             \PY{n}{n} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{n}{data}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)} \PY{c+c1}{\PYZsh{}rader}
+             \PY{n}{m} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{n}{data}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)} \PY{c+c1}{\PYZsh{}kolonner}
+         
+             \PY{c+c1}{\PYZsh{} Shuffle dataset: }
+             \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{shuffle}\PY{p}{(}\PY{n}{data}\PY{p}{)}
+         
+             \PY{n}{mse} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{n}{r2} \PY{o}{=} \PY{l+m+mi}{0}
+             
+             \PY{c+c1}{\PYZsh{}splitter dataset i k like deler. Oppretter antall folder. Bruker array\PYZus{}split. Da blir k deler blir ikke eksakt like,}
+             \PY{c+c1}{\PYZsh{}men tilnærmet like, stort datasett gir lite forskjell. }
+             \PY{n}{split\PYZus{}dataset} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array\PYZus{}split}\PY{p}{(}\PY{n}{data}\PY{p}{,}\PY{n}{k}\PY{p}{)} 
+             \PY{c+c1}{\PYZsh{}Definerer alle k gangene datasettet skal deles opp. }
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{k}\PY{p}{)}\PY{p}{:} 
+                 \PY{c+c1}{\PYZsh{} resetter train før hver oppdeling av datasettet.  }
+                 \PY{n}{train} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
+         
+                 \PY{c+c1}{\PYZsh{} j definerer selve splittdelene og man bestemmer her om del j er en trenings eller test del. }
+                 \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{k}\PY{p}{)}\PY{p}{:} 
+                     \PY{k}{if} \PY{n}{j} \PY{o}{==} \PY{n}{i}\PY{p}{:}
+                         \PY{n}{test} \PY{o}{=} \PY{n}{split\PYZus{}dataset}\PY{p}{[}\PY{n}{j}\PY{p}{]}
+                         \PY{k}{continue}
+                     \PY{n}{train} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{concatenate}\PY{p}{(}\PY{p}{(}\PY{n}{train}\PY{p}{,} \PY{n}{split\PYZus{}dataset}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{)}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{n}{train}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+                 
+                 \PY{c+c1}{\PYZsh{}Lasso\PYZus{}multi = np.c\PYZus{}[x\PYZus{}Lasso, y\PYZus{}Lasso]}
+                 \PY{c+c1}{\PYZsh{}Lasso\PYZus{}multi \PYZhy{} Putter alt treningsettet i en multivariabel som sendes til sklearn sin Lassometode. }
+                 \PY{n}{Lasso\PYZus{}multi} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{c\PYZus{}}\PY{p}{[}\PY{n}{train}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{train}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}
+                 \PY{n}{Lasso\PYZus{}multi\PYZus{}test} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{c\PYZus{}}\PY{p}{[}\PY{n}{test}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{test}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}
+                 
+                 \PY{n}{poly2} \PY{o}{=} \PY{n}{PolynomialFeatures}\PY{p}{(}\PY{n}{degree}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+                 
+                 \PY{c+c1}{\PYZsh{} Transformerer variabelmatrisen }
+                 \PY{n}{Lasso\PYZus{}sklearn} \PY{o}{=} \PY{n}{poly2}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{Lasso\PYZus{}multi}\PY{p}{)}
+                 \PY{n}{Lasso\PYZus{}sklearn\PYZus{}test} \PY{o}{=} \PY{n}{poly2}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{Lasso\PYZus{}multi\PYZus{}test}\PY{p}{)}
+         
+                 \PY{c+c1}{\PYZsh{}print(Lasso\PYZus{}sklearn)}
+                 
+                 \PY{c+c1}{\PYZsh{} Beregner Lasso modell }
+                 \PY{n}{lasso} \PY{o}{=} \PY{n}{linear\PYZus{}model}\PY{o}{.}\PY{n}{Lasso}\PY{p}{(}\PY{n}{alpha}\PY{o}{=}\PY{n}{Lasso\PYZus{}alpha}\PY{p}{)}
+                 \PY{n}{lasso}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{Lasso\PYZus{}sklearn}\PY{p}{,} \PY{n}{train}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)} 
+         
+                 \PY{c+c1}{\PYZsh{} beregner forventet z\PYZhy{}verdier av x og y verdier}
+                 \PY{n}{zpredict\PYZus{}test\PYZus{}L} \PY{o}{=} \PY{n}{lasso}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{Lasso\PYZus{}sklearn\PYZus{}test}\PY{p}{)}
+                 
+                 \PY{n}{nrx} \PY{o}{=}  \PY{n}{np}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{n}{test}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}
+                 \PY{n}{nry} \PY{o}{=}  \PY{n}{np}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{n}{test}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}
+                 \PY{n}{nr} \PY{o}{=}  \PY{n}{np}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{n}{test}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}
+         
+                 \PY{c+c1}{\PYZsh{} Finner forventet z\PYZus{}verdier for testsettet ved å bruke utregnet modell, beta, over og testsettets x og y verdier fra xyb\PYZhy{}matrisa. }
+                 
+                 
+                 \PY{c+c1}{\PYZsh{} regner ut mean squared error pr fold  }
+                 \PY{n}{part\PYZus{}mse} \PY{o}{=} \PY{n}{MSEk}\PY{p}{(}\PY{n}{test}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{n}{zpredict\PYZus{}test\PYZus{}L}\PY{p}{,} \PY{n}{nr}\PY{p}{)} 
+                 \PY{n}{mse} \PY{o}{=} \PY{n}{mse} \PY{o}{+} \PY{n}{part\PYZus{}mse}
+                 
+                 \PY{n}{z\PYZus{}mean} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{nr} \PY{p}{)} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{test}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+                 
+                 \PY{c+c1}{\PYZsh{} Regner ut R\PYZus{}2 score pr fold:   }
+                 \PY{n}{R\PYZus{}2} \PY{o}{=} \PY{l+m+mi}{1} \PY{o}{\PYZhy{}} \PY{p}{(}\PY{p}{(}\PY{p}{(}\PY{n+nb}{sum}\PY{p}{(}\PY{n}{test}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{zpredict\PYZus{}test\PYZus{}L}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n+nb}{sum}\PY{p}{(}\PY{p}{(}\PY{n}{test}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{z\PYZus{}mean}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{r2} \PY{o}{=} \PY{n}{r2} \PY{o}{+} \PY{n}{R\PYZus{}2}
+                 
+                 \PY{c+c1}{\PYZsh{}x\PYZus{}d = test[:,0].reshape(nrx,nrx)}
+                 \PY{c+c1}{\PYZsh{}y\PYZus{}d =test[:,1].reshape(nry,nry)}
+                 \PY{c+c1}{\PYZsh{}z\PYZus{}d = zpredict\PYZus{}test\PYZus{}L.reshape(nr,nr)}
+                 
+                 \PY{c+c1}{\PYZsh{}plotSurface(x\PYZus{}d, y\PYZus{}d, z\PYZus{}d)}
+                 
+                 \PY{n}{part\PYZus{}mse} \PY{o}{=} \PY{l+m+mi}{0}
+                 \PY{n}{nr} \PY{o}{=} \PY{l+m+mi}{0}
+                 \PY{n}{R\PYZus{}2} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{c+c1}{\PYZsh{} Beregnet mean squared error og R\PYZus{}2 etter cross\PYZhy{}validation med k\PYZhy{}fold :}
+             \PY{n}{total\PYZus{}MSE} \PY{o}{=} \PY{p}{(}\PY{n}{mse}\PY{o}{/}\PY{n}{k}\PY{p}{)}
+             \PY{n}{total\PYZus{}R\PYZus{}2} \PY{o}{=} \PY{p}{(}\PY{n}{r2}\PY{o}{/}\PY{n}{k}\PY{p}{)}
+             \PY{k}{return} \PY{n}{total\PYZus{}MSE}\PY{p}{,} \PY{n}{total\PYZus{}R\PYZus{}2}
+\end{Verbatim}
+
+
+    \subsection{Part a)}\label{part-a}
+
+\subsubsection{Linear Regression}\label{linear-regression}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{c+c1}{\PYZsh{}Henter meshgrid verdier av datasettet }
+         \PY{n}{x\PYZus{}d\PYZus{}OLS}\PY{p}{,} \PY{n}{y\PYZus{}d\PYZus{}OLS}\PY{p}{,} \PY{n}{z\PYZus{}d\PYZus{}OLS} \PY{o}{=} \PY{n}{FindData}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{Y}\PY{p}{)} 
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{x\PYZus{}d\PYZus{}OLS}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} Plotter ekte overflate }
+         \PY{n}{plotSurface}\PY{p}{(}\PY{n}{x\PYZus{}d\PYZus{}OLS}\PY{p}{,} \PY{n}{y\PYZus{}d\PYZus{}OLS}\PY{p}{,} \PY{n}{z\PYZus{}d\PYZus{}OLS}\PY{p}{)} 
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(250, 250)
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Project_1_files/Project_1_27_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{c+c1}{\PYZsh{}Konverterer meshgrideverdiene til kolonnevektorer}
+         \PY{n}{x\PYZus{}OLS}\PY{p}{,}\PY{n}{y\PYZus{}OLS}\PY{p}{,}\PY{n}{z\PYZus{}OLS}\PY{p}{,}\PY{n}{m\PYZus{}OLS} \PY{o}{=} \PY{n}{convertData}\PY{p}{(}\PY{n}{x\PYZus{}d\PYZus{}OLS}\PY{p}{,} \PY{n}{y\PYZus{}d\PYZus{}OLS}\PY{p}{,} \PY{n}{z\PYZus{}d\PYZus{}OLS}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{m\PYZus{}OLS}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{x\PYZus{}OLS}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} Finner designmatrisen for datasettet }
+         \PY{n}{xyb\PYZus{}Linear} \PY{o}{=} \PY{n}{XY}\PY{p}{(}\PY{n}{x\PYZus{}OLS}\PY{p}{,}\PY{n}{y\PYZus{}OLS}\PY{p}{)} 
+         \PY{c+c1}{\PYZsh{} Finner modellen }
+         \PY{n}{betaLinear} \PY{o}{=} \PY{n}{beta\PYZus{}model}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Linear}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{xyb\PYZus{}Linear}\PY{p}{,} \PY{n}{z\PYZus{}OLS}\PY{p}{)} 
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{betaLinear}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+62500
+(62500, 1)
+(21, 1)
+
+    \end{Verbatim}
+
+    \subsubsection{Confidence Intervall med
+z\_mean:}\label{confidence-intervall-med-z_mean}
+
+Hvordan skal dette regnes ut og hva slags parametre skal velges. Brukes
+z\_predict(confidenceIntervall) eller z\_mean (confidenceIntervall2)?
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{c+c1}{\PYZsh{}print(confidenceIntervall2(z\PYZus{}OLS, m\PYZus{}OLS, 5, xyb\PYZus{}Linear, betaLinear ))}
+\end{Verbatim}
+
+
+    \subsubsection{Regner ut z\_predict}\label{regner-ut-z_predict}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{c+c1}{\PYZsh{} regner ut forventet verdi ut ifra datasettet og forventet modell}
+         \PY{n}{zpredict\PYZus{}OLS}\PY{p}{,} \PY{n}{zpredict\PYZus{}OLS\PYZus{}mesh} \PY{o}{=} \PY{n}{predict}\PY{p}{(}\PY{n}{xyb\PYZus{}Linear}\PY{p}{,}\PY{n}{betaLinear}\PY{p}{,}\PY{n}{n}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{zpredict\PYZus{}OLS}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{zpredict\PYZus{}OLS\PYZus{}mesh}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{n}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(62500, 1)
+(250, 250)
+250
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{c+c1}{\PYZsh{} Plotter forventet overflate  }
+         \PY{n}{plotSurface}\PY{p}{(}\PY{n}{x\PYZus{}d\PYZus{}OLS}\PY{p}{,} \PY{n}{y\PYZus{}d\PYZus{}OLS}\PY{p}{,} \PY{n}{zpredict\PYZus{}OLS\PYZus{}mesh}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Project_1_files/Project_1_33_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Confidence Intervall med
+z\_predict:}\label{confidence-intervall-med-z_predict}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{c+c1}{\PYZsh{}betaCoeff = }
+         \PY{n}{beta}\PY{p}{,} \PY{n}{betaCoeff}\PY{p}{,} \PY{n}{beta\PYZus{}confInt} \PY{o}{=} \PY{n}{confidenceIntervall}\PY{p}{(}\PY{n}{z\PYZus{}OLS}\PY{p}{,} \PY{n}{zpredict\PYZus{}OLS}\PY{p}{,} \PY{n}{m\PYZus{}OLS}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{n}{xyb\PYZus{}Linear}\PY{p}{,} \PY{n}{betaLinear} \PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{betaCoeff}\PY{p}{)} 
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{beta}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[[0.0030252 ]
+ [0.03368669]
+ [0.03368669]
+ [0.16237028]
+ [0.12686894]
+ [0.16237028]
+ [0.3651539 ]
+ [0.27086476]
+ [0.27086476]
+ [0.3651539 ]
+ [0.3824336 ]
+ [0.29229254]
+ [0.27208537]
+ [0.29229254]
+ [0.3824336 ]
+ [0.15057123]
+ [0.13103027]
+ [0.12786017]
+ [0.12786017]
+ [0.13103027]
+ [0.15057123]]
+[[  0.38359657]
+ [  7.94267297]
+ [  3.87636858]
+ [-34.45872345]
+ [-15.47516698]
+ [ -8.96755549]
+ [ 47.89482466]
+ [ 45.31689036]
+ [ 21.3859254 ]
+ [ -7.65086618]
+ [-22.60705746]
+ [-54.39054128]
+ [ -7.88625491]
+ [-30.61261916]
+ [ 28.99898026]
+ [  0.87617274]
+ [ 19.51194634]
+ [ 10.50598785]
+ [ -5.18996586]
+ [ 17.07823636]
+ [-16.46899467]]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{beta\PYZus{}confInt}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[[  0.38057137   0.38662177]
+ [  7.90898627   7.97635966]
+ [  3.84268189   3.91005528]
+ [-34.62109373 -34.29635316]
+ [-15.60203592 -15.34829804]
+ [ -9.12992577  -8.8051852 ]
+ [ 47.52967076  48.25997855]
+ [ 45.0460256   45.58775512]
+ [ 21.11506064  21.65679015]
+ [ -8.01602008  -7.28571228]
+ [-22.98949106 -22.22462386]
+ [-54.68283382 -54.09824874]
+ [ -8.15834028  -7.61416953]
+ [-30.9049117  -30.32032662]
+ [ 28.61654666  29.38141387]
+ [  0.72560151   1.02674397]
+ [ 19.38091607  19.64297661]
+ [ 10.37812768  10.63384802]
+ [ -5.31782603  -5.06210568]
+ [ 16.94720609  17.20926663]
+ [-16.6195659  -16.31842344]]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{c+c1}{\PYZsh{} Regner ut gjennomsnittsverdien, variansen, mean squared error og standardavviket }
+         \PY{n}{z\PYZus{}mean\PYZus{}OLS} \PY{o}{=} \PY{n}{mu}\PY{p}{(}\PY{n}{z\PYZus{}OLS}\PY{p}{,}\PY{n}{m\PYZus{}OLS}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{z\PYZus{}mean\PYZus{}OLS}\PY{p}{)}   
+         \PY{n}{var\PYZus{}z\PYZus{}OLS} \PY{o}{=} \PY{n}{calc\PYZus{}Variance}\PY{p}{(}\PY{n}{z\PYZus{}OLS}\PY{p}{,}\PY{n}{z\PYZus{}mean\PYZus{}OLS}\PY{p}{,}\PY{n}{m\PYZus{}OLS}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{var\PYZus{}z\PYZus{}OLS}\PY{p}{)}        
+         \PY{n}{MSE\PYZus{}OLS} \PY{o}{=} \PY{n}{MSE}\PY{p}{(}\PY{n}{z\PYZus{}OLS}\PY{p}{,} \PY{n}{zpredict\PYZus{}OLS}\PY{p}{,} \PY{n}{m\PYZus{}OLS}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{MSE\PYZus{}OLS}\PY{p}{)}      
+         \PY{n}{R\PYZus{}2\PYZus{}OLS} \PY{o}{=} \PY{n}{calc\PYZus{}R\PYZus{}2}\PY{p}{(}\PY{n}{z\PYZus{}OLS}\PY{p}{,} \PY{n}{zpredict\PYZus{}OLS}\PY{p}{,} \PY{n}{z\PYZus{}mean\PYZus{}OLS}\PY{p}{,} \PY{n}{m\PYZus{}OLS}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{R\PYZus{}2\PYZus{}OLS}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0.40846842352769225
+[0.08252045]
+[7.53737436e-21]
+[1.]
+
+    \end{Verbatim}
+
+    \[E[(y - \hat f(x))^2] = \text{Bias}(\hat f(x))^2 + \text{Var}(\hat f(x)) + \sigma^2 \\ = \left(E[f(x) - \hat f(x)]^2\right)+ \left(E[\hat f(x)^2] - E[\hat f(x)]^2\right) + \sigma^2\]
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{m\PYZus{}OLS}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{xyb\PYZus{}Linear}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{betaLinear}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+62500
+(62500, 21)
+(21, 1)
+
+    \end{Verbatim}
+
+    \subsubsection{Resampler settet en gang}\label{resampler-settet-en-gang}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{c+c1}{\PYZsh{} \PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} Tester med nye random punkter: }
+\end{Verbatim}
+
+
+    mse, R\_2, biasModel, var, beta\_confInt =
+test(x\_OLS,y\_OLS,z\_OLS,'Linear') print('Mean squared error: ', mse)
+print('R 2- score: ', R\_2) print('bias for the model ', biasModel)
+print('Variancen for the model: ', var) print('beta Confidence
+Intervall: \n', beta\_confInt)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{n}{mse}\PY{p}{,} \PY{n}{R\PYZus{}2}\PY{p}{,} \PY{n}{biasModel}\PY{p}{,} \PY{n}{var}\PY{p}{,} \PY{n}{beta\PYZus{}confInt} \PY{o}{=} \PY{n}{test2}\PY{p}{(}\PY{n}{x\PYZus{}OLS}\PY{p}{,}\PY{n}{y\PYZus{}OLS}\PY{p}{,}\PY{n}{z\PYZus{}OLS}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Linear}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mean squared error: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{mse}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{R 2\PYZhy{} score: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{R\PYZus{}2}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bias for the model }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{biasModel}\PY{p}{)} 
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Variancen for the model: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{var}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{beta Confidence Intervall: }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{beta\PYZus{}confInt}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(12500, 21)
+(12500,)
+Mean squared error:  0.0020770177512867273
+R 2- score:  0.8153891043571083
+bias for the model  0.16293184781136097
+Variancen for the model:  0.08035389095349181
+beta Confidence Intervall: 
+ [[  0.35630195   0.38737151]
+ [  7.87783221   8.22537723]
+ [  3.75637705   4.11303313]
+ [-35.718742   -34.02090104]
+ [-16.45439029 -15.12827317]
+ [ -9.96306365  -8.24206417]
+ [ 46.73089489  50.57059737]
+ [ 44.45195818  47.27324424]
+ [ 20.42554917  23.29167765]
+ [ -9.39597481  -5.52685684]
+ [-25.29418242 -21.25925727]
+ [-56.30180949 -53.22771849]
+ [ -9.9044708   -7.04475943]
+ [-32.35989146 -29.2586573 ]
+ [ 26.78137619  30.83553672]
+ [  0.30574642   1.89880733]
+ [ 18.92988549  20.32233714]
+ [  9.96970839  11.32052947]
+ [ -5.64090615  -4.28650115]
+ [ 16.35476427  17.74574085]
+ [-17.17903076 -15.58126684]]
+
+    \end{Verbatim}
+
+    \subsubsection{Tester med
+crossvalidation:}\label{tester-med-crossvalidation}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{n}{total\PYZus{}MSE}\PY{p}{,} \PY{n}{total\PYZus{}R\PYZus{}2}\PY{p}{,} \PY{n}{totVarianceModel} \PY{p}{,} \PY{n}{beta\PYZus{}confInt}\PY{p}{,} \PY{n}{biasModelk} \PY{o}{=} \PY{n}{test\PYZus{}k\PYZus{}fold}\PY{p}{(}\PY{n}{x\PYZus{}OLS}\PY{p}{,}\PY{n}{y\PYZus{}OLS}\PY{p}{,}\PY{n}{z\PYZus{}OLS}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Linear}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mean squared error: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{total\PYZus{}MSE}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{R 2\PYZhy{} score: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{total\PYZus{}R\PYZus{}2}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bias for the model }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{biasModelk}\PY{p}{)} 
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Variancen for the model: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{totVarianceModel}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{beta Confidence Intervall: }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{beta\PYZus{}confInt}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0.16325377183054812
+0.08064337639728943
+0.16324300774083603
+0.08063261318041132
+0.1631148585309636
+0.08050441606841405
+Mean squared error:  0.16320387936744926
+R 2- score:  0.9786226045865947
+bias for the model  [[0.16325377]
+ [0.16324301]
+ [0.16311486]]
+Variancen for the model:  0.08059346854870493
+beta Confidence Intervall: 
+ [[  0.38210235   0.39259906]
+ [  7.83419407   7.95189278]
+ [  3.77111464   3.88835464]
+ [-34.53143349 -33.96511719]
+ [-15.41832209 -14.97763607]
+ [ -9.12963541  -8.56300799]
+ [ 46.80642876  48.07761065]
+ [ 44.43028963  45.37484491]
+ [ 20.32712636  21.26703212]
+ [ -8.36491837  -7.09006445]
+ [-22.81959025 -21.4892015 ]
+ [-54.62938169 -53.61053812]
+ [ -7.81628183  -6.87032538]
+ [-30.66678324 -29.6510503 ]
+ [ 28.28927828  29.62415072]
+ [  0.45007898   0.97387059]
+ [ 19.2218262   19.67764616]
+ [ 10.06625893  10.51147874]
+ [ -5.52420663  -5.07898921]
+ [ 16.69135191  17.14764149]
+ [-16.68477992 -16.15949452]]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{c+c1}{\PYZsh{}numberofK = np.size(biasModelk,0)}
+         \PY{n}{biasTotal} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{biasModelk}\PY{p}{)} \PY{c+c1}{\PYZsh{}/numberofK }
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{biasTotal}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0.16320387936744948
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{z\PYZus{}OLS}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(62500, 1)
+
+    \end{Verbatim}
+
+    \paragraph{Finn bias og variansen for
+modellene.}\label{finn-bias-og-variansen-for-modellene.}
+
+\[E[(y - \hat f(x))^2] = \text{Bias}(\hat f(x))^2 + \text{Var}(\hat f(x)) + \sigma^2 \\ = \left(E[f(x) - \hat f(x)]^2\right)+ \left(E[\hat f(x)^2] - E[\hat f(x)]^2\right) + \sigma^2\]
+
+mse = varians + bias
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{n}{bias2} \PY{o}{=} \PY{n}{bias}\PY{p}{(}\PY{n}{z\PYZus{}OLS}\PY{p}{,} \PY{n}{zpredict\PYZus{}OLS}\PY{p}{,} \PY{n}{m\PYZus{}OLS}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{bias2}\PY{p}{)}
+         \PY{n}{varianceModel} \PY{o}{=} \PY{n}{var2}\PY{p}{(}\PY{n}{zpredict\PYZus{}OLS}\PY{p}{,} \PY{n}{m\PYZus{}OLS}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{varianceModel}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0.08252044502676406
+0.08049388154816256
+
+    \end{Verbatim}
+
+    \subsection{Part b) Ridge}\label{part-b-ridge}
+
+\paragraph{Ridge Regression on the Franke function med
+resampling}\label{ridge-regression-on-the-franke-function-med-resampling}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{n}{x\PYZus{}d\PYZus{}Ridge}\PY{p}{,} \PY{n}{y\PYZus{}d\PYZus{}Ridge}\PY{p}{,} \PY{n}{z\PYZus{}d\PYZus{}Ridge} \PY{o}{=} \PY{n}{FindData}\PY{p}{(}\PY{n}{X} \PY{p}{,} \PY{n}{Y}\PY{p}{)} 
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{x\PYZus{}d\PYZus{}Ridge}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         \PY{n}{plotSurface}\PY{p}{(}\PY{n}{x\PYZus{}d\PYZus{}Ridge}\PY{p}{,} \PY{n}{y\PYZus{}d\PYZus{}Ridge}\PY{p}{,} \PY{n}{z\PYZus{}d\PYZus{}Ridge}\PY{p}{)} 
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(250, 250)
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Project_1_files/Project_1_51_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{n}{x\PYZus{}Ridge}\PY{p}{,} \PY{n}{y\PYZus{}Ridge}\PY{p}{,} \PY{n}{z\PYZus{}Ridge}\PY{p}{,} \PY{n}{m} \PY{o}{=} \PY{n}{convertData}\PY{p}{(}\PY{n}{x\PYZus{}d\PYZus{}Ridge}\PY{p}{,} \PY{n}{y\PYZus{}d\PYZus{}Ridge}\PY{p}{,} \PY{n}{z\PYZus{}d\PYZus{}Ridge}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{n}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{m}\PY{p}{)}
+         \PY{n}{xyb\PYZus{}Ridge} \PY{o}{=} \PY{n}{XY}\PY{p}{(}\PY{n}{x\PYZus{}Ridge}\PY{p}{,} \PY{n}{y\PYZus{}Ridge}\PY{p}{)} 
+         \PY{n}{betaRidge} \PY{o}{=} \PY{n}{beta\PYZus{}model}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ridge}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{xyb\PYZus{}Ridge}\PY{p}{,} \PY{n}{z\PYZus{}Ridge}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+250
+62500
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{n}{zpredict\PYZus{}Ridge}\PY{p}{,} \PY{n}{zpredict\PYZus{}Ridge\PYZus{}mesh} \PY{o}{=} \PY{n}{predict}\PY{p}{(}\PY{n}{xyb\PYZus{}Ridge} \PY{p}{,}\PY{n}{betaRidge}\PY{p}{,} \PY{n}{n}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{zpredict\PYZus{}Ridge\PYZus{}mesh}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(250, 250)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{c+c1}{\PYZsh{} Plot the predicted surface.}
+         \PY{n}{plotSurface}\PY{p}{(}\PY{n}{x\PYZus{}d\PYZus{}Ridge}\PY{p}{,} \PY{n}{y\PYZus{}d\PYZus{}Ridge}\PY{p}{,} \PY{n}{zpredict\PYZus{}Ridge\PYZus{}mesh}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Project_1_files/Project_1_54_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{confidenceIntervall}\PY{p}{(}\PY{n}{z\PYZus{}Ridge}\PY{p}{,} \PY{n}{zpredict\PYZus{}Ridge}\PY{p}{,} \PY{n}{m}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{n}{xyb\PYZus{}Ridge}\PY{p}{,} \PY{n}{betaRidge} \PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(array([[ 0.88636603],
+       [ 1.0834995 ],
+       [ 1.40390196],
+       [-6.64179612],
+       [ 1.01375842],
+       [-6.00033513],
+       [ 4.18671518],
+       [ 1.77602348],
+       [-1.31413489],
+       [ 2.02521662],
+       [ 4.11764721],
+       [ 0.69398982],
+       [ 0.98765134],
+       [-0.6771815 ],
+       [ 4.06261958],
+       [-3.71558518],
+       [-1.99757225],
+       [ 0.58162334],
+       [-1.04349527],
+       [ 0.52127009],
+       [-2.00947876]]), array([[0.00470527],
+       [0.0523949 ],
+       [0.0523949 ],
+       [0.25254405],
+       [0.19732672],
+       [0.25254405],
+       [0.56794533],
+       [0.42129189],
+       [0.42129189],
+       [0.56794533],
+       [0.59482148],
+       [0.45461977],
+       [0.42319039],
+       [0.45461977],
+       [0.59482148],
+       [0.23419229],
+       [0.20379908],
+       [0.19886844],
+       [0.19886844],
+       [0.20379908],
+       [0.23419229]]), array([[ 0.88166076,  0.8910713 ],
+       [ 1.0311046 ,  1.13589439],
+       [ 1.35150706,  1.45629686],
+       [-6.89434017, -6.38925206],
+       [ 0.8164317 ,  1.21108514],
+       [-6.25287919, -5.74779108],
+       [ 3.61876985,  4.75466051],
+       [ 1.35473159,  2.19731537],
+       [-1.73542678, -0.892843  ],
+       [ 1.45727129,  2.59316195],
+       [ 3.52282573,  4.71246868],
+       [ 0.23937005,  1.1486096 ],
+       [ 0.56446096,  1.41084173],
+       [-1.13180128, -0.22256173],
+       [ 3.46779811,  4.65744106],
+       [-3.94977746, -3.48139289],
+       [-2.20137133, -1.79377317],
+       [ 0.3827549 ,  0.78049178],
+       [-1.24236372, -0.84462683],
+       [ 0.317471  ,  0.72506917],
+       [-2.24367105, -1.77528647]]))
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{c+c1}{\PYZsh{} Regner ut gjennomsnittsverdien, variansen, mean squared error og standardavviket }
+         \PY{n}{z\PYZus{}mean\PYZus{}Ridge} \PY{o}{=} \PY{n}{mu}\PY{p}{(}\PY{n}{z\PYZus{}Ridge}\PY{p}{,}\PY{n}{m}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{z\PYZus{}mean\PYZus{}Ridge}\PY{p}{)}   
+         \PY{c+c1}{\PYZsh{}print(m)}
+         \PY{n}{var\PYZus{}z\PYZus{}Ridge} \PY{o}{=} \PY{n}{calc\PYZus{}Variance}\PY{p}{(}\PY{n}{z\PYZus{}Ridge}\PY{p}{,}\PY{n}{z\PYZus{}mean\PYZus{}Ridge}\PY{p}{,}\PY{n}{m}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{var\PYZus{}z\PYZus{}Ridge}\PY{p}{)}        
+         \PY{n}{MSE\PYZus{}Ridge} \PY{o}{=} \PY{n}{MSE}\PY{p}{(}\PY{n}{z\PYZus{}Ridge}\PY{p}{,} \PY{n}{zpredict\PYZus{}Ridge}\PY{p}{,} \PY{n}{m}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{MSE\PYZus{}Ridge}\PY{p}{)}      
+         \PY{n}{R\PYZus{}2\PYZus{}Ridge} \PY{o}{=} \PY{n}{calc\PYZus{}R\PYZus{}2}\PY{p}{(}\PY{n}{z\PYZus{}Ridge}\PY{p}{,} \PY{n}{zpredict\PYZus{}Ridge}\PY{p}{,} \PY{n}{z\PYZus{}mean\PYZus{}Ridge}\PY{p}{,} \PY{n}{m}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{R\PYZus{}2\PYZus{}Ridge}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0.40846842352769225
+[0.08252045]
+[3.14257909e-06]
+[0.99996192]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{n}{mse\PYZus{}R}\PY{p}{,} \PY{n}{R\PYZus{}2\PYZus{}R}\PY{p}{,} \PY{n}{biasModel\PYZus{}R}\PY{p}{,} \PY{n}{var\PYZus{}R}\PY{p}{,} \PY{n}{beta\PYZus{}confInt\PYZus{}R} \PY{o}{=} \PY{n}{test}\PY{p}{(}\PY{n}{x\PYZus{}Ridge}\PY{p}{,} \PY{n}{y\PYZus{}Ridge}\PY{p}{,} \PY{n}{z\PYZus{}Ridge}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ridge}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mean squared error: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{mse\PYZus{}R}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{R 2\PYZhy{} score: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{R\PYZus{}2\PYZus{}R}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bias for the model }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{biasModel\PYZus{}R}\PY{p}{)} 
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Variancen for the model: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{var\PYZus{}R}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{beta Confidence Intervall: }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{beta\PYZus{}confInt\PYZus{}R}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Mean squared error:  0.005374605982416148
+R 2- score:  0.9976696731000213
+bias for the model  0.08294866554039199
+Variancen for the model:  0.07536620212292003
+beta Confidence Intervall: 
+ [[ 0.92950577  0.93270011]
+ [ 0.69138179  0.72759509]
+ [ 1.12476217  1.16015103]
+ [-5.64163751 -5.46733002]
+ [ 1.14186857  1.27772819]
+ [-5.33270388 -5.16093196]
+ [ 3.25930043  3.6511494 ]
+ [ 1.30653459  1.59855221]
+ [-1.42783867 -1.14013046]
+ [ 1.37352991  1.76215304]
+ [ 3.27116704  3.68204571]
+ [ 0.68291242  0.99786346]
+ [ 0.42993152  0.72232514]
+ [-0.64127428 -0.33098512]
+ [ 3.14868622  3.5572587 ]
+ [-3.17770358 -3.01559004]
+ [-1.85333798 -1.7119396 ]
+ [ 0.31360048  0.45166426]
+ [-0.64508676 -0.50820571]
+ [ 0.1961878   0.33563068]
+ [-1.43803699 -1.27678211]]
+
+    \end{Verbatim}
+
+    \paragraph{Endrer datasett til trening og test
+sett:}\label{endrer-datasett-til-trening-og-test-sett}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{n}{total\PYZus{}MSE}\PY{p}{,} \PY{n}{total\PYZus{}R\PYZus{}2}\PY{p}{,} \PY{n}{totVarianceModel} \PY{p}{,} \PY{n}{beta\PYZus{}confInt}\PY{p}{,} \PY{n}{biasModel} \PY{o}{=} \PY{n}{test\PYZus{}k\PYZus{}fold}\PY{p}{(}\PY{n}{x\PYZus{}Ridge}\PY{p}{,} \PY{n}{y\PYZus{}Ridge}\PY{p}{,} \PY{n}{z\PYZus{}Ridge}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ridge}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0.15464455213882938
+0.07311539697931983
+0.15490311557347658
+0.07337412532291991
+0.15483413077428523
+0.0733048499760539
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mean squared error: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{total\PYZus{}MSE}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{R 2\PYZhy{} score: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{total\PYZus{}R\PYZus{}2}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bias for the model }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{biasModelk}\PY{p}{)} 
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Variancen for the model: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{totVarianceModel}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{beta Confidence Intervall: }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{beta\PYZus{}confInt}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Mean squared error:  0.15479393282886375
+R 2- score:  0.9793053325684656
+bias for the model  [[0.16325377]
+ [0.16324301]
+ [0.16311486]]
+Variancen for the model:  0.07326479075943121
+beta Confidence Intervall: 
+ [[ 9.44524287e-01  9.54284752e-01]
+ [ 4.49960628e-01  5.58643014e-01]
+ [ 9.51719555e-01  1.06092601e+00]
+ [-5.09026246e+00 -4.56620999e+00]
+ [ 1.02101437e+00  1.43053950e+00]
+ [-5.04556882e+00 -4.51897710e+00]
+ [ 2.32527045e+00  3.50380236e+00]
+ [ 8.77070415e-01  1.75371433e+00]
+ [-1.64460681e+00 -7.68127330e-01]
+ [ 6.59011732e-01  1.84256782e+00]
+ [ 2.39382146e+00  3.62888390e+00]
+ [ 3.99932615e-01  1.34659229e+00]
+ [-1.05241942e-02  8.69127868e-01]
+ [-8.68472711e-01  7.79735860e-02]
+ [ 2.28134936e+00  3.52070840e+00]
+ [-2.86765734e+00 -2.38094966e+00]
+ [-1.81753331e+00 -1.39282469e+00]
+ [-4.55955098e-03  4.10917962e-01]
+ [-5.22202976e-01 -1.05707214e-01]
+ [-1.26516806e-01  2.98925546e-01]
+ [-1.15195977e+00 -6.63737931e-01]]
+
+    \end{Verbatim}
+
+    \paragraph{Finn bias og variansen for
+modellene.}\label{finn-bias-og-variansen-for-modellene.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}44}]:} \PY{n}{bias2} \PY{o}{=} \PY{n}{bias}\PY{p}{(}\PY{n}{z\PYZus{}Ridge}\PY{p}{,} \PY{n}{zpredict\PYZus{}Ridge}\PY{p}{,} \PY{n}{m}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{bias2}\PY{p}{)}
+         \PY{n}{varianceModel} \PY{o}{=} \PY{n}{var2}\PY{p}{(}\PY{n}{zpredict\PYZus{}Ridge}\PY{p}{,} \PY{n}{m}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{varianceModel}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0.08252044507704533
+0.0748957693810862
+
+    \end{Verbatim}
+
+    \subsection{Part c) Lasso}\label{part-c-lasso}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{c+c1}{\PYZsh{} Oppretter meshgrid av datasettet }
+         \PY{n}{x\PYZus{}d\PYZus{}Lasso}\PY{p}{,} \PY{n}{y\PYZus{}d\PYZus{}Lasso}\PY{p}{,} \PY{n}{z\PYZus{}d\PYZus{}Lasso} \PY{o}{=} \PY{n}{FindData}\PY{p}{(}\PY{n}{X} \PY{p}{,} \PY{n}{Y}\PY{p}{)} 
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{x\PYZus{}d\PYZus{}Lasso}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} Plotter z\PYZus{}d med meshgrid av x og y}
+         \PY{n}{plotSurface}\PY{p}{(}\PY{n}{x\PYZus{}d\PYZus{}Lasso}\PY{p}{,} \PY{n}{y\PYZus{}d\PYZus{}Lasso}\PY{p}{,} \PY{n}{z\PYZus{}d\PYZus{}Lasso}\PY{p}{)} 
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(250, 250)
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Project_1_files/Project_1_64_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}46}]:} \PY{c+c1}{\PYZsh{} Konverterer meshgrid til kolonnevektorer}
+         \PY{n}{x\PYZus{}Lasso}\PY{p}{,} \PY{n}{y\PYZus{}Lasso}\PY{p}{,} \PY{n}{z\PYZus{}Lasso}\PY{p}{,} \PY{n}{m} \PY{o}{=} \PY{n}{convertData}\PY{p}{(}\PY{n}{x\PYZus{}d\PYZus{}Lasso}\PY{p}{,} \PY{n}{y\PYZus{}d\PYZus{}Lasso}\PY{p}{,} \PY{n}{z\PYZus{}d\PYZus{}Lasso}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{n}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{m}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} Oppretter independent variabel matrise av x og y vektorene}
+         \PY{n}{Lasso\PYZus{}multi} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{c\PYZus{}}\PY{p}{[}\PY{n}{x\PYZus{}Lasso}\PY{p}{,} \PY{n}{y\PYZus{}Lasso}\PY{p}{]}
+         \PY{c+c1}{\PYZsh{}print (Lasso\PYZus{}multi)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+250
+62500
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}47}]:} \PY{c+c1}{\PYZsh{} Bruker sklearn for å finne Lasso\PYZhy{}modell. Bruker PolynomialFeatures for ikke lineær funksjon}
+         \PY{n}{poly2} \PY{o}{=} \PY{n}{PolynomialFeatures}\PY{p}{(}\PY{n}{degree}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Transformerer variabelmatrisen }
+         \PY{n}{Lasso\PYZus{}sklearn} \PY{o}{=} \PY{n}{poly2}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{Lasso\PYZus{}multi}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{Lasso\PYZus{}sklearn}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}print(z\PYZus{}Lasso)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[[1.         0.         0.         {\ldots} 0.         0.         0.        ]
+ [1.         0.004      0.         {\ldots} 0.         0.         0.        ]
+ [1.         0.008      0.         {\ldots} 0.         0.         0.        ]
+ {\ldots}
+ [1.         0.988      0.996      {\ldots} 0.94534122 0.95299581 0.96071237]
+ [1.         0.992      0.996      {\ldots} 0.9530113  0.95685409 0.96071237]
+ [1.         0.996      0.996      {\ldots} 0.96071237 0.96071237 0.96071237]]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}48}]:} \PY{c+c1}{\PYZsh{} Beregner Lasso modell }
+         \PY{n}{lasso}\PY{o}{=}\PY{n}{linear\PYZus{}model}\PY{o}{.}\PY{n}{Lasso}\PY{p}{(}\PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.001}\PY{p}{)}
+         \PY{n}{lasso}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{Lasso\PYZus{}sklearn}\PY{p}{,} \PY{n}{z\PYZus{}Lasso}\PY{p}{)} 
+         
+         \PY{c+c1}{\PYZsh{} beregner forventet z\PYZhy{}verdier av x og y verdier}
+         \PY{n}{predictLasso} \PY{o}{=} \PY{n}{lasso}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{Lasso\PYZus{}sklearn}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Lasso Coefficient: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{lasso}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Lasso Intercept: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{lasso}\PY{o}{.}\PY{n}{intercept\PYZus{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Lasso Coefficient:  [ 0.         -0.65491407 -0.         -0.15778774  0.12229035 -1.22730824
+ -0.          0.52630547  0.         -0.         -0.          0.
+  0.         -0.          0.         -0.          0.          0.
+ -0.          0.          0.         -0.          0.          0.
+ -0.         -0.          0.          0.         -0.          0.
+  0.         -0.         -0.         -0.          0.          0.36004502
+ -0.          0.          0.         -0.         -0.         -0.
+ -0.          0.          0.20428755 -0.          0.         -0.
+ -0.         -0.         -0.         -0.         -0.          0.
+  0.         -0.         -0.         -0.         -0.         -0.
+ -0.         -0.         -0.         -0.          0.          0.        ]
+Lasso Intercept:  [1.00979497]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}49}]:} \PY{c+c1}{\PYZsh{} Plotter forventet overflate med Lasso modellen }
+         \PY{n}{predict\PYZus{}mesh\PYZus{}Lasso} \PY{o}{=} \PY{n}{predictLasso}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{n}\PY{p}{,}\PY{n}{n}\PY{p}{)}
+         \PY{n}{plotSurface}\PY{p}{(}\PY{n}{x\PYZus{}d\PYZus{}Lasso}\PY{p}{,} \PY{n}{y\PYZus{}d\PYZus{}Lasso}\PY{p}{,} \PY{n}{predict\PYZus{}mesh\PYZus{}Lasso}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Project_1_files/Project_1_68_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Kommentar til Lasso: Ser at ved å endre på alpha til veldig liten så
+begynner Lasso og ligne mer og mer på originale surfacen. ved alpha =
+0.1 så synes bare et grått plan. Koeffisientene endres også ved å endre
+på alpha. Det samme med intercept.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}50}]:} \PY{n}{k\PYZus{}fold\PYZus{}Lasso}\PY{p}{(}\PY{n}{x\PYZus{}Lasso}\PY{p}{,} \PY{n}{y\PYZus{}Lasso}\PY{p}{,} \PY{n}{z\PYZus{}Lasso}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mf}{0.001}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(46875, 3)
+(46875, 3)
+(46875, 3)
+(46875, 3)
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}50}]:} (0.012867664461539013, 0.743628760482914)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+
+    \subsection{Part d)}\label{part-d}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}51}]:} \PY{k+kn}{from} \PY{n+nn}{imageio} \PY{k}{import} \PY{n}{imread}
+         \PY{k+kn}{from} \PY{n+nn}{mpl\PYZus{}toolkits}\PY{n+nn}{.}\PY{n+nn}{mplot3d} \PY{k}{import} \PY{n}{Axes3D}
+         \PY{k+kn}{from} \PY{n+nn}{matplotlib} \PY{k}{import} \PY{n}{cm}
+         
+         \PY{c+c1}{\PYZsh{} Load the terrain}
+         \PY{n}{terrain1} \PY{o}{=} \PY{n}{imread}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Data/SRTM\PYZus{}data\PYZus{}Norway\PYZus{}1.tif}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}terrain1 = imread(\PYZsq{}Data/SRTM\PYZus{}data\PYZus{}Norway\PYZus{}2.tif\PYZsq{})}
+         \PY{c+c1}{\PYZsh{} Show the terrain}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Terrain over Norway 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{terrain1}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{X}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Project_1_files/Project_1_73_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}52}]:} \PY{c+c1}{\PYZsh{} Load the terrain}
+         \PY{n}{terrain2} \PY{o}{=} \PY{n}{imread}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Data/SRTM\PYZus{}data\PYZus{}Norway\PYZus{}2.tif}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} Show the terrain}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Terrain over Norway 2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{terrain2}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{X}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Project_1_files/Project_1_74_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{Part e)}\label{part-e}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}53}]:} \PY{c+c1}{\PYZsh{} Velg ett område, f.eks 100x100 som tilsvarer X og Y. se på intensiteten på bildet. }
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}54}]:} \PY{c+c1}{\PYZsh{} Kode fra Kristine }
+         
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{c+c1}{\PYZsh{}from scipy.misc import imread}
+         \PY{k+kn}{from} \PY{n+nn}{imageio} \PY{k}{import} \PY{n}{imread}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         \PY{k+kn}{from} \PY{n+nn}{mpl\PYZus{}toolkits}\PY{n+nn}{.}\PY{n+nn}{mplot3d} \PY{k}{import} \PY{n}{Axes3D}
+         \PY{k+kn}{from} \PY{n+nn}{matplotlib} \PY{k}{import} \PY{n}{cm}
+         
+         \PY{k}{def} \PY{n+nf}{surface\PYZus{}plot}\PY{p}{(}\PY{n}{surface}\PY{p}{,}\PY{n}{title}\PY{p}{,} \PY{n}{surface1}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}\PY{p}{:}
+             \PY{n}{M}\PY{p}{,}\PY{n}{N} \PY{o}{=} \PY{n}{surface}\PY{o}{.}\PY{n}{shape}
+         
+             \PY{n}{ax\PYZus{}rows} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{M}\PY{p}{)}
+             \PY{n}{ax\PYZus{}cols} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{N}\PY{p}{)}
+         
+             \PY{p}{[}\PY{n}{X}\PY{p}{,}\PY{n}{Y}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{meshgrid}\PY{p}{(}\PY{n}{ax\PYZus{}cols}\PY{p}{,} \PY{n}{ax\PYZus{}rows}\PY{p}{)}
+         
+             \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+             \PY{k}{if} \PY{n}{surface1} \PY{o+ow}{is} \PY{o+ow}{not} \PY{k+kc}{None}\PY{p}{:}
+                 \PY{n}{ax} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{projection}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{3d}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                 \PY{n}{ax}\PY{o}{.}\PY{n}{plot\PYZus{}surface}\PY{p}{(}\PY{n}{X}\PY{p}{,}\PY{n}{Y}\PY{p}{,}\PY{n}{surface}\PY{p}{,}\PY{n}{cmap}\PY{o}{=}\PY{n}{cm}\PY{o}{.}\PY{n}{viridis}\PY{p}{,}\PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{n}{title}\PY{p}{)}
+         
+                 \PY{n}{ax} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{n}{projection}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{3d}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                 \PY{n}{ax}\PY{o}{.}\PY{n}{plot\PYZus{}surface}\PY{p}{(}\PY{n}{X}\PY{p}{,}\PY{n}{Y}\PY{p}{,}\PY{n}{surface1}\PY{p}{,}\PY{n}{cmap}\PY{o}{=}\PY{n}{cm}\PY{o}{.}\PY{n}{viridis}\PY{p}{,}\PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{n}{title}\PY{p}{)}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{n}{ax} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{gca}\PY{p}{(}\PY{n}{projection}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{3d}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                 \PY{n}{ax}\PY{o}{.}\PY{n}{plot\PYZus{}surface}\PY{p}{(}\PY{n}{X}\PY{p}{,}\PY{n}{Y}\PY{p}{,}\PY{n}{surface}\PY{p}{,}\PY{n}{cmap}\PY{o}{=}\PY{n}{cm}\PY{o}{.}\PY{n}{viridis}\PY{p}{,}\PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{n}{title}\PY{p}{)}
+         
+         
+         \PY{k}{def} \PY{n+nf}{predict}\PY{p}{(}\PY{n}{rows}\PY{p}{,} \PY{n}{cols}\PY{p}{,} \PY{n}{beta}\PY{p}{)}\PY{p}{:}
+             \PY{n}{out} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{n}{rows}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{n}{cols}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         
+             \PY{k}{for} \PY{n}{i}\PY{p}{,}\PY{n}{y\PYZus{}} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{rows}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{for} \PY{n}{j}\PY{p}{,}\PY{n}{x\PYZus{}} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{cols}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{data\PYZus{}vec} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{x\PYZus{}}\PY{p}{,} \PY{n}{y\PYZus{}}\PY{p}{,} \PY{n}{x\PYZus{}}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{x\PYZus{}}\PY{o}{*}\PY{n}{y\PYZus{}}\PY{p}{,} \PY{n}{y\PYZus{}}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{,} \PYZbs{}
+                                         \PY{n}{x\PYZus{}}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{x\PYZus{}}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{y\PYZus{}}\PY{p}{,} \PY{n}{x\PYZus{}}\PY{o}{*}\PY{n}{y\PYZus{}}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{y\PYZus{}}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{3}\PY{p}{,} \PYZbs{}
+                                         \PY{n}{x\PYZus{}}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{4}\PY{p}{,} \PY{n}{x\PYZus{}}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{3}\PY{o}{*}\PY{n}{y\PYZus{}}\PY{p}{,} \PY{n}{x\PYZus{}}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{y\PYZus{}}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{x\PYZus{}}\PY{o}{*}\PY{n}{y\PYZus{}}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{3}\PY{p}{,}\PY{n}{y\PYZus{}}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{4}\PY{p}{,} \PYZbs{}
+                                         \PY{n}{x\PYZus{}}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{x\PYZus{}}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{4}\PY{o}{*}\PY{n}{y\PYZus{}}\PY{p}{,} \PY{n}{x\PYZus{}}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{3}\PY{o}{*}\PY{n}{y\PYZus{}}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{x\PYZus{}}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{y\PYZus{}}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{3}\PY{p}{,}\PY{n}{x\PYZus{}}\PY{o}{*}\PY{n}{y\PYZus{}}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{4}\PY{p}{,}\PY{n}{y\PYZus{}}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{)}\PY{c+c1}{\PYZsh{},\PYZbs{}}
+                                     \PY{c+c1}{\PYZsh{}    x\PYZus{}**6, x\PYZus{}**5*y\PYZus{}, x\PYZus{}**4*y\PYZus{}**2, x\PYZus{}**3*y\PYZus{}**3,x\PYZus{}**2*y\PYZus{}**4, x\PYZus{}*y\PYZus{}**5, y\PYZus{}**6, \PYZbs{}}
+                                     \PY{c+c1}{\PYZsh{}    x\PYZus{}**7, x\PYZus{}**6*y\PYZus{}, x\PYZus{}**5*y\PYZus{}**2, x\PYZus{}**4*y\PYZus{}**3,x\PYZus{}**3*y\PYZus{}**4, x\PYZus{}**2*y\PYZus{}**5, x\PYZus{}*y\PYZus{}**6, y\PYZus{}**7, \PYZbs{}}
+                                     \PY{c+c1}{\PYZsh{}    x\PYZus{}**8, x\PYZus{}**7*y\PYZus{}, x\PYZus{}**6*y\PYZus{}**2, x\PYZus{}**5*y\PYZus{}**3,x\PYZus{}**4*y\PYZus{}**4, x\PYZus{}**3*y\PYZus{}**5, x\PYZus{}**2*y\PYZus{}**6, x\PYZus{}*y\PYZus{}**7,y\PYZus{}**8, \PYZbs{}}
+                                     \PY{c+c1}{\PYZsh{}    x\PYZus{}**9, x\PYZus{}**8*y\PYZus{}, x\PYZus{}**7*y\PYZus{}**2, x\PYZus{}**6*y\PYZus{}**3,x\PYZus{}**5*y\PYZus{}**4, x\PYZus{}**4*y\PYZus{}**5, x\PYZus{}**3*y\PYZus{}**6, x\PYZus{}**2*y\PYZus{}**7,x\PYZus{}*y\PYZus{}**8, y\PYZus{}**9])}
+                     \PY{n}{out}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{j}\PY{p}{]} \PY{o}{=} \PY{n}{data\PYZus{}vec} \PY{o}{@} \PY{n}{beta}
+         
+             \PY{k}{return} \PY{n}{out}
+         
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{mean\PYZus{}squared\PYZus{}error}
+         
+         \PY{k}{if} \PY{n+nv+vm}{\PYZus{}\PYZus{}name\PYZus{}\PYZus{}} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZus{}\PYZus{}main\PYZus{}\PYZus{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+         
+             \PY{c+c1}{\PYZsh{} Load the terrain}
+             \PY{n}{terrain1} \PY{o}{=} \PY{n}{imread}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data/SRTM\PYZus{}data\PYZus{}Norway\PYZus{}1.tif}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{p}{[}\PY{n}{n}\PY{p}{,}\PY{n}{m}\PY{p}{]} \PY{o}{=} \PY{n}{terrain1}\PY{o}{.}\PY{n}{shape}
+         
+             \PY{c+c1}{\PYZsh{}\PYZsh{} Find some random patches within the dataset and perform a fit}
+         
+             \PY{c+c1}{\PYZsh{}patch\PYZus{}size\PYZus{}row = 100}
+             \PY{c+c1}{\PYZsh{}patch\PYZus{}size\PYZus{}col = 50}
+         
+             \PY{n}{patch\PYZus{}size\PYZus{}row} \PY{o}{=} \PY{l+m+mi}{800}
+             \PY{n}{patch\PYZus{}size\PYZus{}col} \PY{o}{=} \PY{l+m+mi}{400}
+             
+             \PY{c+c1}{\PYZsh{} Define their axes}
+             \PY{n}{rows} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{patch\PYZus{}size\PYZus{}row}\PY{p}{)}
+             \PY{n}{cols} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{patch\PYZus{}size\PYZus{}col}\PY{p}{)}
+         
+             \PY{p}{[}\PY{n}{C}\PY{p}{,}\PY{n}{R}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{meshgrid}\PY{p}{(}\PY{n}{cols}\PY{p}{,}\PY{n}{rows}\PY{p}{)}
+         
+             \PY{n}{x} \PY{o}{=} \PY{n}{C}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n}{y} \PY{o}{=} \PY{n}{R}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+         
+             \PY{n}{num\PYZus{}data} \PY{o}{=} \PY{n}{patch\PYZus{}size\PYZus{}row}\PY{o}{*}\PY{n}{patch\PYZus{}size\PYZus{}col}
+         
+             \PY{c+c1}{\PYZsh{} Find the start indices of each patch}
+         
+             \PY{n}{num\PYZus{}patches} \PY{o}{=} \PY{l+m+mi}{5}
+         
+             \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{l+m+mi}{4155}\PY{p}{)}
+         
+             \PY{n}{row\PYZus{}starts} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randint}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{n}\PY{o}{\PYZhy{}}\PY{n}{patch\PYZus{}size\PYZus{}row}\PY{p}{,}\PY{n}{num\PYZus{}patches}\PY{p}{)}
+             \PY{n}{col\PYZus{}starts} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randint}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{m}\PY{o}{\PYZhy{}}\PY{n}{patch\PYZus{}size\PYZus{}col}\PY{p}{,}\PY{n}{num\PYZus{}patches}\PY{p}{)}
+         
+             \PY{k}{for} \PY{n}{i}\PY{p}{,}\PY{n}{row\PYZus{}start}\PY{p}{,} \PY{n}{col\PYZus{}start} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{num\PYZus{}patches}\PY{p}{)}\PY{p}{,}\PY{n}{row\PYZus{}starts}\PY{p}{,} \PY{n}{col\PYZus{}starts}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{row\PYZus{}end} \PY{o}{=} \PY{n}{row\PYZus{}start} \PY{o}{+} \PY{n}{patch\PYZus{}size\PYZus{}row}
+                 \PY{n}{col\PYZus{}end} \PY{o}{=} \PY{n}{col\PYZus{}start} \PY{o}{+} \PY{n}{patch\PYZus{}size\PYZus{}col}
+         
+                 \PY{n}{patch} \PY{o}{=} \PY{n}{terrain1}\PY{p}{[}\PY{n}{row\PYZus{}start}\PY{p}{:}\PY{n}{row\PYZus{}end}\PY{p}{,} \PY{n}{col\PYZus{}start}\PY{p}{:}\PY{n}{col\PYZus{}end}\PY{p}{]}
+         
+                 \PY{n}{z} \PY{o}{=} \PY{n}{patch}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+         
+                 \PY{c+c1}{\PYZsh{} Perform OLS fit}
+                 \PY{n}{data} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{c\PYZus{}}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{p}{(}\PY{n}{num\PYZus{}data}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PYZbs{}
+                              \PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{x}\PY{o}{*}\PY{n}{y}\PY{p}{,} \PY{n}{y}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{,} \PYZbs{}
+                              \PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{y}\PY{p}{,} \PY{n}{x}\PY{o}{*}\PY{n}{y}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{y}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{3}\PY{p}{,} \PYZbs{}
+                              \PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{4}\PY{p}{,} \PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{3}\PY{o}{*}\PY{n}{y}\PY{p}{,} \PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{y}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{x}\PY{o}{*}\PY{n}{y}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{3}\PY{p}{,}\PY{n}{y}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{4}\PY{p}{,} \PYZbs{}
+                              \PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{4}\PY{o}{*}\PY{n}{y}\PY{p}{,} \PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{3}\PY{o}{*}\PY{n}{y}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{y}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{3}\PY{p}{,}\PY{n}{x}\PY{o}{*}\PY{n}{y}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{4}\PY{p}{,} \PY{n}{y}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{5}\PY{p}{]}\PY{c+c1}{\PYZsh{}, \PYZbs{}}
+                              \PY{c+c1}{\PYZsh{}x**6, x**5*y, x**4*y**2, x**3*y**3,x**2*y**4, x*y**5, y**6, \PYZbs{}}
+                              \PY{c+c1}{\PYZsh{}x**7, x**6*y, x**5*y**2, x**4*y**3,x**3*y**4, x**2*y**5, x*y**6, y**7, \PYZbs{}}
+                              \PY{c+c1}{\PYZsh{}x**8, x**7*y, x**6*y**2, x**5*y**3,x**4*y**4, x**3*y**5, x**2*y**6, x*y**7,y**8, \PYZbs{}}
+                              \PY{c+c1}{\PYZsh{}x**9, x**8*y, x**7*y**2, x**6*y**3,x**5*y**4, x**4*y**5, x**3*y**6, x**2*y**7,x*y**8, y**9]}
+         
+                 \PY{n}{beta\PYZus{}ols} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{inv}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{T} \PY{o}{@} \PY{n}{data}\PY{p}{)} \PY{o}{@} \PY{n}{data}\PY{o}{.}\PY{n}{T} \PY{o}{@} \PY{n}{z}
+         
+                 \PY{n}{fitted\PYZus{}patch} \PY{o}{=} \PY{n}{predict}\PY{p}{(}\PY{n}{rows}\PY{p}{,} \PY{n}{cols}\PY{p}{,} \PY{n}{beta\PYZus{}ols}\PY{p}{)}
+         
+                 \PY{n}{mse} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(} \PY{p}{(}\PY{n}{fitted\PYZus{}patch} \PY{o}{\PYZhy{}} \PY{n}{patch}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{p}{)}\PY{o}{/}\PY{n}{num\PYZus{}data}
+                 \PY{n}{R2} \PY{o}{=} \PY{l+m+mi}{1} \PY{o}{\PYZhy{}} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(} \PY{p}{(}\PY{n}{fitted\PYZus{}patch} \PY{o}{\PYZhy{}} \PY{n}{patch}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{p}{)}\PY{o}{/}\PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(} \PY{p}{(}\PY{n}{patch} \PY{o}{\PYZhy{}} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{patch}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{p}{)}
+                 \PY{n}{var} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(} \PY{p}{(}\PY{n}{fitted\PYZus{}patch} \PY{o}{\PYZhy{}} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{fitted\PYZus{}patch}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{p}{)}\PY{o}{/}\PY{n}{num\PYZus{}data}
+                 \PY{n}{bias} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(} \PY{p}{(}\PY{n}{patch} \PY{o}{\PYZhy{}} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{fitted\PYZus{}patch}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{p}{)}\PY{o}{/}\PY{n}{num\PYZus{}data}
+         
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{patch }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s2}{, from (}\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s2}{, }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s2}{) to (}\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s2}{, }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s2}{)}\PY{l+s+s2}{\PYZdq{}}\PY{o}{\PYZpc{}}\PY{p}{(}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{row\PYZus{}start}\PY{p}{,} \PY{n}{col\PYZus{}start}\PY{p}{,} \PY{n}{row\PYZus{}end}\PY{p}{,}\PY{n}{col\PYZus{}end}\PY{p}{)}\PY{p}{)}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{mse: }\PY{l+s+si}{\PYZpc{}g}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{R2: }\PY{l+s+si}{\PYZpc{}g}\PY{l+s+s2}{\PYZdq{}}\PY{o}{\PYZpc{}}\PY{p}{(}\PY{n}{mse}\PY{p}{,} \PY{n}{R2}\PY{p}{)}\PY{p}{)}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{variance: }\PY{l+s+si}{\PYZpc{}g}\PY{l+s+s2}{\PYZdq{}}\PY{o}{\PYZpc{}}\PY{k}{var})
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bias: }\PY{l+s+si}{\PYZpc{}g}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{o}{\PYZpc{}}\PY{k}{bias})
+         
+                 \PY{n}{surface\PYZus{}plot}\PY{p}{(}\PY{n}{fitted\PYZus{}patch}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fitted terrain surface}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{patch}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} Perform fit over the whole dataset}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The whole dataset}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+             \PY{n}{rows} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{n}\PY{p}{)}
+             \PY{n}{cols} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{m}\PY{p}{)}
+         
+             \PY{p}{[}\PY{n}{C}\PY{p}{,}\PY{n}{R}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{meshgrid}\PY{p}{(}\PY{n}{cols}\PY{p}{,}\PY{n}{rows}\PY{p}{)}
+         
+             \PY{n}{x} \PY{o}{=} \PY{n}{C}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n}{y} \PY{o}{=} \PY{n}{R}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+         
+             \PY{n}{num\PYZus{}data} \PY{o}{=} \PY{n}{n}\PY{o}{*}\PY{n}{m}
+         
+             \PY{n}{data} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{c\PYZus{}}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{p}{(}\PY{n}{num\PYZus{}data}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PYZbs{}
+                          \PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{x}\PY{o}{*}\PY{n}{y}\PY{p}{,} \PY{n}{y}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{,} \PYZbs{}
+                          \PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{y}\PY{p}{,} \PY{n}{x}\PY{o}{*}\PY{n}{y}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{y}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{3}\PY{p}{,} \PYZbs{}
+                          \PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{4}\PY{p}{,} \PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{3}\PY{o}{*}\PY{n}{y}\PY{p}{,} \PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{y}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{x}\PY{o}{*}\PY{n}{y}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{3}\PY{p}{,}\PY{n}{y}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{4}\PY{p}{,} \PYZbs{}
+                          \PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{4}\PY{o}{*}\PY{n}{y}\PY{p}{,} \PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{3}\PY{o}{*}\PY{n}{y}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{y}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{3}\PY{p}{,}\PY{n}{x}\PY{o}{*}\PY{n}{y}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{4}\PY{p}{,} \PY{n}{y}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{5}\PY{p}{]}
+         
+             \PY{n}{z} \PY{o}{=} \PY{n}{terrain1}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)}
+             
+             \PY{n}{beta\PYZus{}ols} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{inv}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{T} \PY{o}{@} \PY{n}{data}\PY{p}{)} \PY{o}{@} \PY{n}{data}\PY{o}{.}\PY{n}{T} \PY{o}{@} \PY{n}{z}
+         
+             \PY{n}{fitted\PYZus{}terrain} \PY{o}{=} \PY{n}{predict}\PY{p}{(}\PY{n}{rows}\PY{p}{,} \PY{n}{cols}\PY{p}{,} \PY{n}{beta\PYZus{}ols}\PY{p}{)}
+         
+             \PY{n}{mse} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(} \PY{p}{(}\PY{n}{fitted\PYZus{}terrain} \PY{o}{\PYZhy{}} \PY{n}{terrain1}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{p}{)}\PY{o}{/}\PY{n}{num\PYZus{}data}
+             \PY{n}{R2} \PY{o}{=} \PY{l+m+mi}{1} \PY{o}{\PYZhy{}} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(} \PY{p}{(}\PY{n}{fitted\PYZus{}terrain} \PY{o}{\PYZhy{}} \PY{n}{terrain1}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{p}{)}\PY{o}{/}\PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(} \PY{p}{(}\PY{n}{terrain1}\PY{o}{\PYZhy{}} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{terrain1}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{p}{)}
+             \PY{n}{var} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(} \PY{p}{(}\PY{n}{fitted\PYZus{}terrain} \PY{o}{\PYZhy{}} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{fitted\PYZus{}terrain}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{p}{)}\PY{o}{/}\PY{n}{num\PYZus{}data}
+             \PY{n}{bias} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(} \PY{p}{(}\PY{n}{terrain1} \PY{o}{\PYZhy{}} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{fitted\PYZus{}terrain}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{p}{)}\PY{o}{/}\PY{n}{num\PYZus{}data}
+         
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{mse: }\PY{l+s+si}{\PYZpc{}g}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{R2: }\PY{l+s+si}{\PYZpc{}g}\PY{l+s+s2}{\PYZdq{}}\PY{o}{\PYZpc{}}\PY{p}{(}\PY{n}{mse}\PY{p}{,} \PY{n}{R2}\PY{p}{)}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{variance: }\PY{l+s+si}{\PYZpc{}g}\PY{l+s+s2}{\PYZdq{}}\PY{o}{\PYZpc{}}\PY{k}{var})
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bias: }\PY{l+s+si}{\PYZpc{}g}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{o}{\PYZpc{}}\PY{k}{bias})
+         
+             \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+patch 1, from (1466, 886) to (2266, 1286)
+mse: 38484.4
+R2: 0.533812
+variance: 44066.8
+bias: 82551.2
+
+patch 2, from (1062, 499) to (1862, 899)
+mse: 11912.9
+R2: 0.44506
+variance: 9554.11
+bias: 21467
+
+patch 3, from (2552, 859) to (3352, 1259)
+mse: 7394.8
+R2: 0.77824
+variance: 25951.1
+bias: 33345.9
+
+patch 4, from (962, 967) to (1762, 1367)
+mse: 37333
+R2: 0.416821
+variance: 26683.4
+bias: 64016.4
+
+patch 5, from (183, 934) to (983, 1334)
+mse: 35475.5
+R2: 0.334222
+variance: 17808.8
+bias: 53284.3
+
+The whole dataset
+mse: 42617.3
+R2: 0.537315
+variance: 49491.5
+bias: 92108.8
+
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Project_1_files/Project_1_77_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Project_1_files/Project_1_77_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Project_1_files/Project_1_77_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Project_1_files/Project_1_77_4.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Project_1_files/Project_1_77_5.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
